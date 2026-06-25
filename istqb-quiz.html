@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -482,7 +482,7 @@
       <ul>
         <li>Każde pytanie ma <strong>dokładnie jedną</strong> poprawną odpowiedź (A/B/C/D)</li>
         <li>Po kliknięciu odpowiedzi pojawi się natychmiastowy feedback i wyjaśnienie</li>
-        <li>Pytania są w języku angielskim (jak na oficjalnym egzaminie ISTQB)</li>
+        <li>Pytania są w języku polskim</li>
         <li>Interfejs jest po polsku</li>
         <li>Po zakończeniu zobaczysz wynik z rozkładem per rozdział i per poziom K</li>
       </ul>
@@ -564,497 +564,605 @@
 // correct: 0=A, 1=B, 2=C, 3=D
 // ═══════════════════════════════════════════════════════════
 const questions = [
-
-  // ─── CHAPTER 1 – Fundamentals of Testing (2×K1, 4×K2) ───
   {
-    id:1, chapter:1, chapterName:"Fundamentals of Testing", kLevel:"K1",
-    question:"Which of the following is the correct ISTQB definition of a 'defect'?",
-    options:[
-      "A human action that produces an incorrect result",
-      "The inability of a system to perform a required function",
-      "An imperfection or deficiency in a work product",
-      "A formal record of an unexpected system behavior"
+    "id": 1,
+    "chapter": 1,
+    "chapterName": "Podstawy testowania",
+    "kLevel": "K1",
+    "question": "Która z poniższych odpowiedzi jest poprawną definicją ISTQB terminu „defekt”?",
+    "options": [
+      "Działanie człowieka, które prowadzi do niepoprawnego wyniku",
+      "Niezdolność systemu do wykonania wymaganej funkcji",
+      "Niedoskonałość lub brak w produkcie pracy",
+      "Formalny zapis nieoczekiwanego zachowania systemu"
     ],
-    correct:2,
-    explanation:"A defect (bug/fault) is an imperfection or deficiency in a work product. The human action causing it is an 'error'; what happens at runtime when the defect is triggered is a 'failure'."
+    "correct": 2,
+    "explanation": "Defekt (bug/usterka) to niedoskonałość lub brak w produkcie pracy. Działanie człowieka, które go spowodowało, to „błąd”; to, co dzieje się w czasie wykonywania po uaktywnieniu defektu, to „awaria”."
   },
   {
-    id:2, chapter:1, chapterName:"Fundamentals of Testing", kLevel:"K1",
-    question:"Which of the following is NOT a typical objective of testing according to ISTQB CTFL v4.0?",
-    options:[
-      "Providing information to stakeholders for decision-making",
-      "Finding defects before the software is released",
-      "Building confidence in the quality of the test object",
-      "Proving the software is completely free of defects"
+    "id": 2,
+    "chapter": 1,
+    "chapterName": "Podstawy testowania",
+    "kLevel": "K1",
+    "question": "Która z poniższych odpowiedzi NIE jest typowym celem testowania według ISTQB CTFL v4.0?",
+    "options": [
+      "Dostarczanie interesariuszom informacji wspierających podejmowanie decyzji",
+      "Znajdowanie defektów przed wydaniem oprogramowania",
+      "Budowanie zaufania do jakości obiektu testowego",
+      "Udowodnienie, że oprogramowanie jest całkowicie wolne od defektów"
     ],
-    correct:3,
-    explanation:"Proving software is entirely defect-free is NOT a testing objective—it is impossible. Testing can only demonstrate the presence of defects, not their absence (Testing Principle 1)."
+    "correct": 3,
+    "explanation": "Udowodnienie, że oprogramowanie jest całkowicie wolne od defektów, NIE jest celem testowania — jest to niemożliwe. Testowanie może jedynie wykazać obecność defektów, a nie ich brak (Zasada testowania 1)."
   },
   {
-    id:3, chapter:1, chapterName:"Fundamentals of Testing", kLevel:"K2",
-    question:"A tester notices that the same regression test suite has stopped finding new defects even though the team suspects bugs still exist in the system. Which testing principle best explains this situation?",
-    options:[
-      "Defect clustering",
-      "Absence-of-errors fallacy",
-      "Pesticide paradox",
-      "Testing is context dependent"
+    "id": 3,
+    "chapter": 1,
+    "chapterName": "Podstawy testowania",
+    "kLevel": "K2",
+    "question": "Tester zauważa, że ten sam zestaw testów regresji przestał znajdować nowe defekty, mimo że zespół podejrzewa, iż w systemie nadal występują błędy. Która zasada testowania najlepiej wyjaśnia tę sytuację?",
+    "options": [
+      "Grupowanie się defektów",
+      "Paradoks braku błędów",
+      "Paradoks pestycydów",
+      "Testowanie zależy od kontekstu"
     ],
-    correct:2,
-    explanation:"The Pesticide Paradox (Principle 5) states that if the same tests are run repeatedly, they eventually stop finding new defects. Test cases must be regularly reviewed and updated to remain effective."
+    "correct": 2,
+    "explanation": "Paradoks pestycydów (Zasada 5) mówi, że jeśli te same testy są uruchamiane wielokrotnie, z czasem przestają wykrywać nowe defekty. Przypadki testowe muszą być regularnie przeglądane i aktualizowane, aby pozostały skuteczne."
   },
   {
-    id:4, chapter:1, chapterName:"Fundamentals of Testing", kLevel:"K2",
-    question:"Analysis of defect data from a banking application shows that 80% of defects came from just 4 out of 25 modules. Which testing principle does this illustrate?",
-    options:[
-      "Defect clustering",
-      "Testing shows presence of defects, not their absence",
-      "Early testing saves time and money",
-      "Exhaustive testing is impossible"
+    "id": 4,
+    "chapter": 1,
+    "chapterName": "Podstawy testowania",
+    "kLevel": "K2",
+    "question": "Analiza danych o defektach z aplikacji bankowej pokazuje, że 80% defektów pochodziło tylko z 4 spośród 25 modułów. Którą zasadę testowania to ilustruje?",
+    "options": [
+      "Grupowanie się defektów",
+      "Testowanie pokazuje obecność defektów, a nie ich brak",
+      "Wczesne testowanie oszczędza czas i pieniądze",
+      "Testowanie wyczerpujące jest niemożliwe"
     ],
-    correct:0,
-    explanation:"Defect Clustering (Principle 4) states that a small number of modules usually contain most of the defects, reflecting the Pareto principle applied to software quality."
+    "correct": 0,
+    "explanation": "Grupowanie się defektów (Zasada 4) mówi, że niewielka liczba modułów zwykle zawiera większość defektów, co odzwierciedla zasadę Pareto zastosowaną do jakości oprogramowania."
   },
   {
-    id:5, chapter:1, chapterName:"Fundamentals of Testing", kLevel:"K2",
-    question:"Which statement correctly distinguishes verification from validation in software testing?",
-    options:[
-      "Verification confirms the product was built right; validation confirms the right product was built",
-      "Verification is performed only by testers; validation is performed only by developers",
-      "Verification uses dynamic testing; validation always uses static techniques",
-      "Verification is done at system level; validation is done at unit level"
+    "id": 5,
+    "chapter": 1,
+    "chapterName": "Podstawy testowania",
+    "kLevel": "K2",
+    "question": "Które stwierdzenie poprawnie odróżnia weryfikację od walidacji w testowaniu oprogramowania?",
+    "options": [
+      "Weryfikacja potwierdza, że produkt został zbudowany poprawnie; walidacja potwierdza, że zbudowano właściwy produkt",
+      "Weryfikację wykonują wyłącznie testerzy; walidację wyłącznie programiści",
+      "Weryfikacja wykorzystuje testowanie dynamiczne; walidacja zawsze wykorzystuje techniki statyczne",
+      "Weryfikacja jest wykonywana na poziomie systemowym; walidacja na poziomie komponentowym"
     ],
-    correct:0,
-    explanation:"Verification asks 'Are we building the product right?' (conformance to specifications), while Validation asks 'Are we building the right product?' (meeting actual user needs and expectations)."
+    "correct": 0,
+    "explanation": "Weryfikacja odpowiada na pytanie „Czy budujemy produkt poprawnie?” (zgodność ze specyfikacją), natomiast walidacja na pytanie „Czy budujemy właściwy produkt?” (spełnienie rzeczywistych potrzeb i oczekiwań użytkowników)."
   },
   {
-    id:6, chapter:1, chapterName:"Fundamentals of Testing", kLevel:"K2",
-    question:"Which explanation best describes why testing early in the development lifecycle is more cost-effective?",
-    options:[
-      "Early test environments are cheaper to set up than later ones",
-      "Testers are more productive at the beginning of a project",
-      "The cost of fixing defects increases significantly the later they are discovered",
-      "Early test cases can be reused without modification throughout the entire project"
+    "id": 6,
+    "chapter": 1,
+    "chapterName": "Podstawy testowania",
+    "kLevel": "K2",
+    "question": "Które wyjaśnienie najlepiej opisuje, dlaczego testowanie na wczesnym etapie cyklu życia wytwarzania jest bardziej opłacalne kosztowo?",
+    "options": [
+      "Wczesne środowiska testowe są tańsze w przygotowaniu niż późniejsze",
+      "Testerzy są bardziej produktywni na początku projektu",
+      "Koszt usunięcia defektów znacząco rośnie, im później zostaną one wykryte",
+      "Wczesne przypadki testowe można bez modyfikacji wykorzystywać ponownie przez cały projekt"
     ],
-    correct:2,
-    explanation:"Early Testing (Principle 3) recognizes that defects found in requirements or design phases cost much less to fix than those discovered after release. The cost of correction grows exponentially with each phase."
-  },
-
-  // ─── CHAPTER 2 – Testing Throughout the SDLC (2×K1, 4×K2) ───
-  {
-    id:7, chapter:2, chapterName:"Testing Throughout the SDLC", kLevel:"K1",
-    question:"Which test level focuses on testing interactions and interfaces between integrated components or subsystems?",
-    options:[
-      "Unit testing",
-      "System testing",
-      "Acceptance testing",
-      "Integration testing"
-    ],
-    correct:3,
-    explanation:"Integration testing verifies that components or subsystems work together correctly, focusing on the interfaces and data flows between them—not on individual components in isolation."
+    "correct": 2,
+    "explanation": "Wczesne testowanie (Zasada 3) wskazuje, że defekty znalezione na etapie wymagań lub projektowania kosztują znacznie mniej do usunięcia niż te wykryte po wydaniu. Koszt poprawy rośnie wykładniczo wraz z kolejnymi etapami."
   },
   {
-    id:8, chapter:2, chapterName:"Testing Throughout the SDLC", kLevel:"K1",
-    question:"Which test type evaluates attributes such as response time, throughput, and resource consumption under specified load conditions?",
-    options:[
-      "Security testing",
-      "Usability testing",
-      "Compatibility testing",
-      "Performance testing"
+    "id": 7,
+    "chapter": 2,
+    "chapterName": "Testowanie w cyklu życia",
+    "kLevel": "K1",
+    "question": "Który poziom testów koncentruje się na sprawdzaniu interakcji i interfejsów pomiędzy zintegrowanymi komponentami lub podsystemami?",
+    "options": [
+      "Testowanie komponentów",
+      "Testowanie systemowe",
+      "Testowanie akceptacyjne",
+      "Testowanie integracyjne"
     ],
-    correct:3,
-    explanation:"Performance testing evaluates how a system behaves under a given workload, measuring attributes such as response time, throughput, and resource utilization to identify performance bottlenecks."
+    "correct": 3,
+    "explanation": "Testowanie integracyjne weryfikuje, czy komponenty lub podsystemy współpracują ze sobą poprawnie, koncentrując się na interfejsach i przepływach danych między nimi, a nie na pojedynczych komponentach w izolacji."
   },
   {
-    id:9, chapter:2, chapterName:"Testing Throughout the SDLC", kLevel:"K2",
-    question:"In an Agile development environment, which statement best describes how testing activities are typically organized?",
-    options:[
-      "Testing is integrated throughout the sprint, with testers collaborating closely with developers",
-      "A dedicated QA phase is executed after every sprint is complete",
-      "Only automated testing is used; manual testing is eliminated entirely",
-      "Acceptance testing replaces all other test levels in Agile projects"
+    "id": 8,
+    "chapter": 2,
+    "chapterName": "Testowanie w cyklu życia",
+    "kLevel": "K1",
+    "question": "Który typ testów ocenia takie atrybuty jak czas odpowiedzi, przepustowość i zużycie zasobów w określonych warunkach obciążenia?",
+    "options": [
+      "Testowanie bezpieczeństwa",
+      "Testowanie użyteczności",
+      "Testowanie kompatybilności",
+      "Testowanie wydajności"
     ],
-    correct:0,
-    explanation:"In Agile, testing is continuous and collaborative—testers work within the same sprint alongside developers, participating in planning, definition of done, and test execution rather than in a separate phase."
+    "correct": 3,
+    "explanation": "Testowanie wydajności ocenia, jak system zachowuje się przy określonym obciążeniu, mierząc takie atrybuty jak czas odpowiedzi, przepustowość i wykorzystanie zasobów, aby zidentyfikować wąskie gardła wydajnościowe."
   },
   {
-    id:10, chapter:2, chapterName:"Testing Throughout the SDLC", kLevel:"K2",
-    question:"What is the primary purpose of confirmation testing (also called re-testing)?",
-    options:[
-      "To detect new defects introduced by recent code changes",
-      "To verify that a previously identified defect has been successfully corrected",
-      "To measure whether the system meets its performance targets",
-      "To validate the system against user acceptance criteria"
+    "id": 9,
+    "chapter": 2,
+    "chapterName": "Testowanie w cyklu życia",
+    "kLevel": "K2",
+    "question": "W środowisku zwinnym, które stwierdzenie najlepiej opisuje, jak zazwyczaj organizowane są czynności testowe?",
+    "options": [
+      "Testowanie jest zintegrowane w całym sprincie, a testerzy ściśle współpracują z programistami",
+      "Po zakończeniu każdego sprintu wykonywana jest wydzielona faza zapewnienia jakości (QA)",
+      "Stosuje się wyłącznie testy automatyczne; testowanie manualne jest całkowicie eliminowane",
+      "Testowanie akceptacyjne zastępuje wszystkie inne poziomy testów w projektach zwinnych"
     ],
-    correct:1,
-    explanation:"Confirmation testing re-executes the specific test cases that originally revealed a defect, to confirm it has been fixed. This is distinct from regression testing, which checks for unintended side effects of changes."
+    "correct": 0,
+    "explanation": "W podejściu Agile testowanie jest ciągłe i zespołowe — testerzy pracują w tym samym sprincie co programiści, uczestnicząc w planowaniu, definiowaniu ukończenia oraz wykonywaniu testów, zamiast działać w odrębnej fazie."
   },
   {
-    id:11, chapter:2, chapterName:"Testing Throughout the SDLC", kLevel:"K2",
-    question:"A project follows the V-model. Which statement correctly describes the relationship between development phases and test levels?",
-    options:[
-      "Each development phase has a corresponding test level that is planned in parallel with it",
-      "Testing only begins after all development phases are fully complete",
-      "Test phases are executed in the same sequential order as development phases",
-      "The V-model does not support unit testing"
+    "id": 10,
+    "chapter": 2,
+    "chapterName": "Testowanie w cyklu życia",
+    "kLevel": "K2",
+    "question": "Jaki jest podstawowy cel testowania potwierdzającego (zwanego też ponownym testowaniem)?",
+    "options": [
+      "Wykrycie nowych defektów wprowadzonych przez ostatnie zmiany w kodzie",
+      "Zweryfikowanie, że wcześniej zidentyfikowany defekt został skutecznie usunięty",
+      "Sprawdzenie, czy system spełnia cele wydajnościowe",
+      "Walidacja systemu względem kryteriów akceptacji użytkownika"
     ],
-    correct:0,
-    explanation:"In the V-model, each development phase (requirements, system design, detail design, coding) has a corresponding test level (acceptance, system, integration, unit testing) planned in parallel, even though test execution occurs after coding."
+    "correct": 1,
+    "explanation": "Testowanie potwierdzające polega na ponownym wykonaniu tych konkretnych przypadków testowych, które pierwotnie ujawniły defekt, aby potwierdzić, że został on naprawiony. Różni się to od testowania regresyjnego, które sprawdza niezamierzone skutki uboczne zmian."
   },
   {
-    id:12, chapter:2, chapterName:"Testing Throughout the SDLC", kLevel:"K2",
-    question:"Which statement best distinguishes functional testing from non-functional testing?",
-    options:[
-      "Functional testing uses only black-box techniques; non-functional testing always requires source code access",
-      "Functional testing verifies what the system does; non-functional testing evaluates how well it does it",
-      "Functional testing is always automated; non-functional testing must be performed manually",
-      "Functional testing is restricted to unit level; non-functional testing is restricted to system level"
+    "id": 11,
+    "chapter": 2,
+    "chapterName": "Testowanie w cyklu życia",
+    "kLevel": "K2",
+    "question": "Projekt stosuje model V. Które stwierdzenie poprawnie opisuje zależność między fazami wytwarzania a poziomami testów?",
+    "options": [
+      "Każda faza wytwarzania ma odpowiadający jej poziom testów planowany równolegle",
+      "Testowanie rozpoczyna się dopiero po pełnym zakończeniu wszystkich faz wytwarzania",
+      "Fazy testowe są wykonywane w tej samej sekwencji co fazy wytwarzania",
+      "Model V nie wspiera testowania komponentów"
     ],
-    correct:1,
-    explanation:"Functional testing checks whether the system performs its specified functions correctly (e.g., login, calculate). Non-functional testing evaluates quality characteristics—how well the system performs those functions—such as speed, usability, and security."
-  },
-
-  // ─── CHAPTER 3 – Static Testing (3×K2) ───
-  {
-    id:13, chapter:3, chapterName:"Static Testing", kLevel:"K2",
-    question:"Which of the following is an advantage that static testing has over dynamic testing?",
-    options:[
-      "Static testing always finds more defects per hour than dynamic testing",
-      "Static testing provides direct evidence of the system's runtime behavior",
-      "Static testing makes test environments unnecessary for the entire project",
-      "Static testing can be applied to non-executable artifacts such as requirements and design documents"
-    ],
-    correct:3,
-    explanation:"A key advantage of static testing is that it can evaluate non-executable work products (requirements, specifications, design documents, test plans). Dynamic testing requires executable software and cannot directly assess these artifacts."
+    "correct": 0,
+    "explanation": "W modelu V każda faza wytwarzania (wymagania, projekt systemu, projekt szczegółowy, kodowanie) ma odpowiadający jej poziom testów (testowanie akceptacyjne, systemowe, integracyjne, komponentów) planowany równolegle, mimo że wykonanie testów następuje po kodowaniu."
   },
   {
-    id:14, chapter:3, chapterName:"Static Testing", kLevel:"K2",
-    question:"Which defect type is most likely to be detected by static analysis but NOT by dynamic testing?",
-    options:[
-      "Code that can never be reached during any execution path",
-      "A calculation error producing incorrect numeric output",
-      "A UI layout that confuses end users during task completion",
-      "Incorrect behavior when the system processes large input files"
+    "id": 12,
+    "chapter": 2,
+    "chapterName": "Testowanie w cyklu życia",
+    "kLevel": "K2",
+    "question": "Które stwierdzenie najlepiej odróżnia testowanie funkcjonalne od testowania niefunkcjonalnego?",
+    "options": [
+      "Testowanie funkcjonalne wykorzystuje wyłącznie techniki czarnoskrzynkowe; testowanie niefunkcjonalne zawsze wymaga dostępu do kodu źródłowego",
+      "Testowanie funkcjonalne sprawdza, co system robi; testowanie niefunkcjonalne ocenia, jak dobrze to robi",
+      "Testowanie funkcjonalne jest zawsze zautomatyzowane; testowanie niefunkcjonalne musi być wykonywane ręcznie",
+      "Testowanie funkcjonalne jest ograniczone do poziomu komponentów; testowanie niefunkcjonalne do poziomu systemowego"
     ],
-    correct:0,
-    explanation:"Unreachable (dead) code can be identified by static analysis tools by examining code structure without execution. Dynamic testing cannot detect dead code because such code is never executed, regardless of the test cases used."
+    "correct": 1,
+    "explanation": "Testowanie funkcjonalne sprawdza, czy system poprawnie realizuje określone funkcje (np. logowanie, obliczenia). Testowanie niefunkcjonalne ocenia charakterystyki jakościowe, czyli jak dobrze system realizuje te funkcje, na przykład pod względem szybkości, użyteczności czy bezpieczeństwa."
   },
   {
-    id:15, chapter:3, chapterName:"Static Testing", kLevel:"K2",
-    question:"In a formal review, which role is primarily responsible for planning, facilitating, and ensuring the review follows the defined process?",
-    options:[
-      "The author of the work product under review",
-      "The scribe who documents defects during the review meeting",
-      "The moderator",
-      "The review manager who initiated the review"
+    "id": 13,
+    "chapter": 3,
+    "chapterName": "Testowanie statyczne",
+    "kLevel": "K2",
+    "question": "Która z poniższych odpowiedzi opisuje przewagę testowania statycznego nad testowaniem dynamicznym?",
+    "options": [
+      "Testowanie statyczne zawsze znajduje więcej defektów na godzinę niż testowanie dynamiczne",
+      "Testowanie statyczne dostarcza bezpośrednich dowodów zachowania systemu w czasie wykonania",
+      "Testowanie statyczne eliminuje potrzebę środowisk testowych w całym projekcie",
+      "Testowanie statyczne można stosować do niewykonywalnych produktów pracy, takich jak wymagania i dokumenty projektowe"
     ],
-    correct:2,
-    explanation:"The moderator plans and facilitates the formal review meeting—scheduling, distributing materials, leading the meeting, and ensuring the review process is followed. Finding defects is the role of reviewers, not the moderator."
-  },
-
-  // ─── CHAPTER 4 – Test Techniques (3×K2, 8×K3) ───
-  {
-    id:16, chapter:4, chapterName:"Test Analysis and Design", kLevel:"K2",
-    question:"Which of the following test design techniques is classified as a white-box (structure-based) technique?",
-    options:[
-      "Equivalence partitioning",
-      "Decision table testing",
-      "Use case testing",
-      "Statement coverage"
-    ],
-    correct:3,
-    explanation:"Statement coverage is a white-box technique requiring knowledge of the internal code structure to determine which statements have been executed. Equivalence partitioning, decision table testing, and use case testing are black-box techniques."
+    "correct": 3,
+    "explanation": "Kluczową zaletą testowania statycznego jest to, że może oceniać niewykonywalne produkty pracy (wymagania, specyfikacje, dokumenty projektowe, plany testów). Testowanie dynamiczne wymaga wykonywalnego oprogramowania i nie może bezpośrednio oceniać takich artefaktów."
   },
   {
-    id:17, chapter:4, chapterName:"Test Analysis and Design", kLevel:"K2",
-    question:"Which statement best describes the underlying principle of equivalence partitioning?",
-    options:[
-      "Input values are divided into groups where all values in a group are expected to be processed identically",
-      "All possible input combinations must be tested to achieve complete coverage",
-      "Values at and just beyond the boundaries of valid ranges are the most fault-revealing",
-      "The system's valid state sequences are modeled and tested for completeness"
+    "id": 14,
+    "chapter": 3,
+    "chapterName": "Testowanie statyczne",
+    "kLevel": "K2",
+    "question": "Który typ defektu najprawdopodobniej zostanie wykryty przez analizę statyczną, ale NIE przez testowanie dynamiczne?",
+    "options": [
+      "Kod, do którego nie można dotrzeć żadną ścieżką wykonania",
+      "Błąd obliczeń powodujący niepoprawny wynik liczbowy",
+      "Układ interfejsu użytkownika, który wprowadza użytkowników końcowych w błąd podczas realizacji zadania",
+      "Niepoprawne zachowanie podczas przetwarzania przez system dużych plików wejściowych"
     ],
-    correct:0,
-    explanation:"Equivalence Partitioning divides the input domain into partitions where every value within a partition is expected to trigger identical behavior. Testing one representative value per partition is sufficient—if one value works, all should work."
+    "correct": 0,
+    "explanation": "Nieosiągalny (martwy) kod może zostać zidentyfikowany przez narzędzia analizy statycznej poprzez badanie struktury kodu bez jego wykonywania. Testowanie dynamiczne nie wykryje martwego kodu, ponieważ taki kod nigdy nie jest wykonywany, niezależnie od użytych przypadków testowych."
   },
   {
-    id:18, chapter:4, chapterName:"Test Analysis and Design", kLevel:"K2",
-    question:"For which scenario is decision table testing the most appropriate technique to apply?",
-    options:[
-      "Testing sequences of user interactions that navigate through multiple screens",
-      "Testing input values at or near the edges of valid numeric ranges",
-      "Testing system behavior that depends on combinations of multiple conditions",
-      "Testing state changes triggered by specific external events over time"
+    "id": 15,
+    "chapter": 3,
+    "chapterName": "Testowanie statyczne",
+    "kLevel": "K2",
+    "question": "W przeglądzie formalnym, która rola odpowiada przede wszystkim za planowanie, moderowanie i zapewnienie zgodności przeglądu z ustalonym procesem?",
+    "options": [
+      "Autor przeglądanego produktu pracy",
+      "Sekretarz zapisujący defekty podczas spotkania przeglądowego",
+      "Moderator",
+      "Kierownik przeglądu, który go zainicjował"
     ],
-    correct:2,
-    explanation:"Decision table testing is ideal when system behavior (output/action) is determined by combinations of conditions (business rules), ensuring every combination of condition values is tested."
+    "correct": 2,
+    "explanation": "Moderator planuje i prowadzi formalny przegląd — ustala terminy, rozsyła materiały, prowadzi spotkanie i dba o przestrzeganie procesu przeglądu. Znajdowanie defektów jest rolą recenzentów, a nie moderatora."
   },
   {
-    id:19, chapter:4, chapterName:"Test Analysis and Design", kLevel:"K3",
-    question:"A system accepts discount percentages entered by sales staff. Valid input is 0% to 30% inclusive; anything outside is rejected. Using equivalence partitioning, which test set correctly covers one valid partition AND one invalid partition?",
-    options:[
-      "10% and 20%",
-      "0% and 30%",
-      "15% and 35%",
-      "-5% and -10%"
+    "id": 16,
+    "chapter": 4,
+    "chapterName": "Analiza i projektowanie testów",
+    "kLevel": "K2",
+    "question": "Która z poniższych technik projektowania testów jest klasyfikowana jako technika białoskrzynkowa (oparta na strukturze)?",
+    "options": [
+      "Podział na klasy równoważności",
+      "Testowanie z użyciem tablic decyzyjnych",
+      "Testowanie przypadków użycia",
+      "Pokrycie instrukcji"
     ],
-    correct:2,
-    explanation:"The valid partition is 0–30%. Invalid partitions are below 0% and above 30%. Option C uses 15% (from the valid partition) and 35% (from the invalid partition above 30%), correctly covering one of each."
+    "correct": 3,
+    "explanation": "Pokrycie instrukcji jest techniką białoskrzynkową wymagającą znajomości wewnętrznej struktury kodu, aby ustalić, które instrukcje zostały wykonane. Podział na klasy równoważności, tablice decyzyjne i przypadki użycia to techniki czarnoskrzynkowe."
   },
   {
-    id:20, chapter:4, chapterName:"Test Analysis and Design", kLevel:"K3",
-    question:"A hotel booking form accepts 'number of guests' as an integer from 1 to 8 (inclusive). Applying 2-value Boundary Value Analysis, which test set is most appropriate?",
-    options:[
+    "id": 17,
+    "chapter": 4,
+    "chapterName": "Analiza i projektowanie testów",
+    "kLevel": "K2",
+    "question": "Które stwierdzenie najlepiej opisuje podstawową zasadę podziału na klasy równoważności?",
+    "options": [
+      "Wartości wejściowe są dzielone na grupy, w których wszystkie wartości powinny być przetwarzane identycznie",
+      "Aby uzyskać pełne pokrycie, należy przetestować wszystkie możliwe kombinacje wejść",
+      "Wartości na granicach poprawnych zakresów i tuż poza nimi najlepiej ujawniają defekty",
+      "Poprawne sekwencje stanów systemu są modelowane i testowane pod kątem kompletności"
+    ],
+    "correct": 0,
+    "explanation": "Podział na klasy równoważności dzieli dziedzinę wejść na klasy, w których każda wartość powinna wywoływać identyczne zachowanie. Wystarczy przetestować jedną reprezentatywną wartość z każdej klasy — jeśli jedna działa, wszystkie z tej klasy powinny działać tak samo."
+  },
+  {
+    "id": 18,
+    "chapter": 4,
+    "chapterName": "Analiza i projektowanie testów",
+    "kLevel": "K2",
+    "question": "W jakim scenariuszu najwłaściwiej zastosować technikę tablic decyzyjnych?",
+    "options": [
+      "Testowanie sekwencji działań użytkownika przechodzących przez wiele ekranów",
+      "Testowanie wartości wejściowych znajdujących się na granicach poprawnych zakresów lub blisko nich",
+      "Testowanie zachowania systemu zależnego od kombinacji wielu warunków",
+      "Testowanie zmian stanów wywoływanych przez określone zdarzenia zewnętrzne w czasie"
+    ],
+    "correct": 2,
+    "explanation": "Testowanie z użyciem tablic decyzyjnych jest idealne wtedy, gdy zachowanie systemu (wynik lub działanie) jest określone przez kombinacje warunków, czyli reguły biznesowe. Technika ta zapewnia przetestowanie każdej kombinacji wartości warunków."
+  },
+  {
+    "id": 19,
+    "chapter": 4,
+    "chapterName": "Analiza i projektowanie testów",
+    "kLevel": "K3",
+    "question": "System przyjmuje procent rabatu wprowadzany przez pracowników sprzedaży. Poprawne dane wejściowe mieszczą się w zakresie od 0% do 30% włącznie; wszystko poza tym zakresem jest odrzucane. Który zestaw testów, przy zastosowaniu podziału na klasy równoważności, poprawnie pokrywa jedną klasę poprawną ORAZ jedną klasę niepoprawną?",
+    "options": [
+      "10% i 20%",
+      "0% i 30%",
+      "15% i 35%",
+      "-5% i -10%"
+    ],
+    "correct": 2,
+    "explanation": "Poprawna klasa obejmuje zakres 0–30%. Klasy niepoprawne to wartości poniżej 0% i powyżej 30%. Odpowiedź C wykorzystuje 15% (z klasy poprawnej) oraz 35% (z klasy niepoprawnej powyżej 30%), więc poprawnie pokrywa po jednej klasie każdego typu."
+  },
+  {
+    "id": 20,
+    "chapter": 4,
+    "chapterName": "Analiza i projektowanie testów",
+    "kLevel": "K3",
+    "question": "Formularz rezerwacji hotelu przyjmuje „liczbę gości” jako liczbę całkowitą od 1 do 8 (włącznie). Który zestaw testów jest najbardziej odpowiedni przy zastosowaniu 2-wartościowej analizy wartości brzegowych?",
+    "options": [
       "1, 4, 8",
       "0, 1, 8, 9",
       "1, 2, 7, 8",
       "0, 1, 2, 7, 8, 9"
     ],
-    correct:1,
-    explanation:"2-value BVA tests each boundary and the adjacent value just outside it. Lower boundary: 0 (just below) and 1 (minimum). Upper boundary: 8 (maximum) and 9 (just above). Correct set: {0, 1, 8, 9}."
+    "correct": 1,
+    "explanation": "2-wartościowa analiza wartości brzegowych sprawdza każdą granicę oraz sąsiednią wartość tuż poza nią. Dolna granica: 0 (tuż poniżej) i 1 (minimum). Górna granica: 8 (maksimum) i 9 (tuż powyżej). Poprawny zestaw to {0, 1, 8, 9}."
   },
   {
-    id:21, chapter:4, chapterName:"Test Analysis and Design", kLevel:"K3",
-    question:"An online shop charges: €0 shipping for orders under €50, €5 for €50–€99, €10 for €100 and above (whole euro amounts only). A tester applies 3-value BVA to the €50 boundary. Which values must be included?",
-    options:[
+    "id": 21,
+    "chapter": 4,
+    "chapterName": "Analiza i projektowanie testów",
+    "kLevel": "K3",
+    "question": "Sklep internetowy nalicza koszty dostawy: 0 € dla zamówień poniżej 50 €, 5 € dla zamówień 50–99 €, 10 € dla zamówień od 100 € wzwyż (tylko pełne kwoty w euro). Tester stosuje 3-wartościową analizę wartości brzegowych dla granicy 50 €. Które wartości muszą zostać uwzględnione?",
+    "options": [
       "49, 50, 51",
       "48, 50, 52",
       "50, 75, 100",
       "49, 50"
     ],
-    correct:0,
-    explanation:"3-value BVA tests the boundary value and one value on each side. At the €50 boundary: 49 (last value in free-shipping partition), 50 (first value in €5-shipping partition), 51 (one inside the €5 partition). Set: {49, 50, 51}."
+    "correct": 0,
+    "explanation": "3-wartościowa analiza wartości brzegowych sprawdza wartość graniczną oraz po jednej wartości po obu jej stronach. Dla granicy 50 € są to: 49 (ostatnia wartość z klasy darmowej dostawy), 50 (pierwsza wartość z klasy dostawy za 5 €) i 51 (jedna wartość wewnątrz tej klasy). Zestaw to {49, 50, 51}."
   },
   {
-    id:22, chapter:4, chapterName:"Test Analysis and Design", kLevel:"K3",
-    question:"A system grants admin access only when BOTH conditions are true: the user account is 'Active' AND the user has the 'Admin' role. Both conditions are independently yes/no. How many test cases are needed in the decision table to cover all unique combinations?",
-    options:[
+    "id": 22,
+    "chapter": 4,
+    "chapterName": "Analiza i projektowanie testów",
+    "kLevel": "K3",
+    "question": "System przyznaje uprawnienia administratora tylko wtedy, gdy OBA warunki są spełnione: konto użytkownika jest „Aktywne” ORAZ użytkownik ma rolę „Admin”. Oba warunki są niezależnie tak/nie. Ile przypadków testowych jest potrzebnych w tablicy decyzyjnej, aby pokryć wszystkie unikalne kombinacje?",
+    "options": [
       "2",
       "3",
       "8",
       "4"
     ],
-    correct:3,
-    explanation:"With 2 binary conditions (Active: Y/N, Admin: Y/N), there are 2² = 4 possible combinations: (Y,Y), (Y,N), (N,Y), (N,N). A complete decision table requires one test case per combination, giving 4 test cases."
+    "correct": 3,
+    "explanation": "Przy 2 binarnych warunkach (Aktywne: T/N, Admin: T/N) istnieją 2² = 4 możliwe kombinacje: (T,T), (T,N), (N,T), (N,N). Kompletna tablica decyzyjna wymaga jednego przypadku testowego dla każdej kombinacji, czyli 4 przypadków testowych."
   },
   {
-    id:23, chapter:4, chapterName:"Test Analysis and Design", kLevel:"K3",
-    question:"An ATM has states: Idle, Card Inserted, PIN Entered, Transaction Complete. Valid transitions: Idle→Card Inserted, Card Inserted→PIN Entered, PIN Entered→Transaction Complete, Transaction Complete→Idle, and Card Inserted→Idle (card ejected without PIN). How many test cases achieve 100% transition coverage?",
-    options:[
+    "id": 23,
+    "chapter": 4,
+    "chapterName": "Analiza i projektowanie testów",
+    "kLevel": "K3",
+    "question": "Bankomat ma stany: Bezczynny, Karta włożona, PIN wprowadzony, Transakcja zakończona. Poprawne przejścia: Bezczynny→Karta włożona, Karta włożona→PIN wprowadzony, PIN wprowadzony→Transakcja zakończona, Transakcja zakończona→Bezczynny oraz Karta włożona→Bezczynny (wyrzucenie karty bez PIN-u). Ile przypadków testowych zapewnia 100% pokrycia przejść?",
+    "options": [
       "3",
       "4",
       "5",
       "6"
     ],
-    correct:2,
-    explanation:"Transition coverage requires at least one test case per valid transition. The ATM has exactly 5 valid transitions listed. Therefore, 5 test cases are needed for 100% transition coverage."
+    "correct": 2,
+    "explanation": "Pokrycie przejść wymaga co najmniej jednego przypadku testowego dla każdego poprawnego przejścia. Bankomat ma dokładnie 5 poprawnych przejść wymienionych w pytaniu. Dlatego do uzyskania 100% pokrycia przejść potrzeba 5 przypadków testowych."
   },
   {
-    id:24, chapter:4, chapterName:"Test Analysis and Design", kLevel:"K3",
-    question:"A function contains: if (temperature > 100) { triggerAlert(); } else { logNormal(); }. How many test cases are required to achieve 100% branch coverage?",
-    options:[
+    "id": 24,
+    "chapter": 4,
+    "chapterName": "Analiza i projektowanie testów",
+    "kLevel": "K3",
+    "question": "Funkcja zawiera: if (temperature > 100) { triggerAlert(); } else { logNormal(); }. Ile przypadków testowych jest wymaganych do osiągnięcia 100% pokrycia gałęzi?",
+    "options": [
       "1",
       "2",
       "3",
       "4"
     ],
-    correct:1,
-    explanation:"Branch coverage requires exercising every branch (true and false) of each decision. This if-else has exactly 2 branches. Two test cases suffice: one where temperature > 100 (true branch) and one where it is not (false branch)."
+    "correct": 1,
+    "explanation": "Pokrycie gałęzi wymaga wykonania każdej gałęzi (prawda i fałsz) dla każdej decyzji. Ta instrukcja if-else ma dokładnie 2 gałęzie. Wystarczą więc dwa przypadki testowe: jeden, w którym temperature > 100 (gałąź prawdziwa), oraz drugi, w którym warunek nie jest spełniony (gałąź fałszywa)."
   },
   {
-    id:25, chapter:4, chapterName:"Test Analysis and Design", kLevel:"K3",
-    question:"A coverage tool reports that a test suite executed 40 out of 50 executable statements in a module. What is the achieved statement coverage, and how many additional statements need to be executed to reach 100%?",
-    options:[
-      "80% coverage; 10 more statements needed",
-      "80% coverage; 50 more statements needed",
-      "40% coverage; 10 more statements needed",
-      "75% coverage; 15 more statements needed"
+    "id": 25,
+    "chapter": 4,
+    "chapterName": "Analiza i projektowanie testów",
+    "kLevel": "K3",
+    "question": "Narzędzie do pomiaru pokrycia raportuje, że zestaw testów wykonał 40 z 50 wykonywalnych instrukcji w module. Jakie jest osiągnięte pokrycie instrukcji i ile dodatkowych instrukcji trzeba wykonać, aby osiągnąć 100%?",
+    "options": [
+      "80% pokrycia; potrzeba jeszcze 10 instrukcji",
+      "80% pokrycia; potrzeba jeszcze 50 instrukcji",
+      "40% pokrycia; potrzeba jeszcze 10 instrukcji",
+      "75% pokrycia; potrzeba jeszcze 15 instrukcji"
     ],
-    correct:0,
-    explanation:"Statement coverage = (executed / total) × 100 = (40/50) × 100 = 80%. To achieve 100%, the remaining 50 − 40 = 10 unexecuted statements must be covered by additional test cases."
+    "correct": 0,
+    "explanation": "Pokrycie instrukcji = (wykonane / wszystkie) × 100 = (40/50) × 100 = 80%. Aby osiągnąć 100%, trzeba pokryć pozostałe 50 − 40 = 10 niewykonanych instrukcji za pomocą dodatkowych przypadków testowych."
   },
   {
-    id:26, chapter:4, chapterName:"Test Analysis and Design", kLevel:"K3",
-    question:"A tester applies state transition testing to a subscription system with states: Free Trial, Active, Suspended, Cancelled. After mapping 6 valid transitions, the tester also writes test cases attempting transitions that the system should reject (e.g., Cancelled → Suspended). What type of testing do these additional test cases represent?",
-    options:[
-      "Boundary value testing applied to system states",
-      "Negative testing using invalid state transitions",
-      "Equivalence partitioning of the state space",
-      "Decision table coverage for state logic"
+    "id": 26,
+    "chapter": 4,
+    "chapterName": "Analiza i projektowanie testów",
+    "kLevel": "K3",
+    "question": "Tester stosuje testowanie przejść stanów dla systemu subskrypcji o stanach: Okres próbny, Aktywna, Zawieszona, Anulowana. Po zmapowaniu 6 poprawnych przejść tester tworzy także przypadki testowe próbujące wykonać przejścia, które system powinien odrzucić (np. Anulowana → Zawieszona). Jaki typ testowania reprezentują te dodatkowe przypadki testowe?",
+    "options": [
+      "Analizę wartości brzegowych zastosowaną do stanów systemu",
+      "Testowanie negatywne z użyciem niepoprawnych przejść stanów",
+      "Podział przestrzeni stanów na klasy równoważności",
+      "Pokrycie tablicy decyzyjnej dla logiki stanów"
     ],
-    correct:1,
-    explanation:"Testing transitions that should NOT be possible is negative testing within state transition testing. It verifies that the system correctly rejects invalid transitions, rather than inadvertently allowing them."
-  },
-
-  // ─── CHAPTER 5 – Managing the Test Activities (7×K2, 2×K3) ───
-  {
-    id:27, chapter:5, chapterName:"Managing the Test Activities", kLevel:"K2",
-    question:"Which of the following best describes the purpose of a test plan?",
-    options:[
-      "To list all defects discovered during the test execution phase",
-      "To specify the scope, approach, resources, and schedule of testing activities",
-      "To record which test cases passed or failed during execution",
-      "To document the root causes of all identified defects"
-    ],
-    correct:1,
-    explanation:"A test plan documents the scope, strategy, resources, schedule, and objectives of testing activities. It communicates the testing approach to all stakeholders and serves as a guide for the testing effort."
+    "correct": 1,
+    "explanation": "Testowanie przejść, które NIE powinny być możliwe, jest testowaniem negatywnym w ramach testowania przejść stanów. Sprawdza ono, czy system poprawnie odrzuca niepoprawne przejścia, zamiast nieumyślnie je dopuszczać."
   },
   {
-    id:28, chapter:5, chapterName:"Managing the Test Activities", kLevel:"K2",
-    question:"What does the term 'test basis' refer to in the context of test analysis?",
-    options:[
-      "The hardware and software infrastructure that makes up the test environment",
-      "All documentation and information from which test conditions can be derived",
-      "The baseline software version used as a reference for regression testing",
-      "The primary test management tool used to organize and track test cases"
+    "id": 27,
+    "chapter": 5,
+    "chapterName": "Zarządzanie czynnościami testowymi",
+    "kLevel": "K2",
+    "question": "Która z poniższych odpowiedzi najlepiej opisuje cel planu testów?",
+    "options": [
+      "Wypisanie wszystkich defektów znalezionych podczas wykonywania testów",
+      "Określenie zakresu, podejścia, zasobów i harmonogramu czynności testowych",
+      "Rejestrowanie, które przypadki testowe zakończyły się powodzeniem lub niepowodzeniem podczas wykonania",
+      "Udokumentowanie przyczyn źródłowych wszystkich zidentyfikowanych defektów"
     ],
-    correct:1,
-    explanation:"The test basis is the body of documentation—requirements, user stories, design specifications, code—from which the requirements of a component can be inferred and used as the reference for defining test conditions and test cases."
+    "correct": 1,
+    "explanation": "Plan testów dokumentuje zakres, strategię, zasoby, harmonogram i cele czynności testowych. Komunikuje podejście do testowania wszystkim interesariuszom i służy jako przewodnik dla działań testowych."
   },
   {
-    id:29, chapter:5, chapterName:"Managing the Test Activities", kLevel:"K2",
-    question:"Which statement correctly describes risk-based testing?",
-    options:[
-      "Testing all modules with equal depth to ensure no area is overlooked",
-      "Automating every high-risk test case to guarantee consistent execution",
-      "Assigning the most experienced testers exclusively to the most complex modules",
-      "Prioritizing test effort according to the likelihood and impact of potential failures"
+    "id": 28,
+    "chapter": 5,
+    "chapterName": "Zarządzanie czynnościami testowymi",
+    "kLevel": "K2",
+    "question": "Co oznacza termin „podstawa testów” w kontekście analizy testów?",
+    "options": [
+      "Infrastrukturę sprzętowo-programową tworzącą środowisko testowe",
+      "Całą dokumentację i informacje, z których można wyprowadzić warunki testowe",
+      "Bazową wersję oprogramowania używaną jako punkt odniesienia w testowaniu regresyjnym",
+      "Główne narzędzie do zarządzania testami służące do organizacji i śledzenia przypadków testowych"
     ],
-    correct:3,
-    explanation:"Risk-based testing allocates testing effort based on risk level—a combination of the likelihood of a defect occurring and the impact if it does. Higher-risk areas receive more intensive testing."
+    "correct": 1,
+    "explanation": "Podstawa testów to zbiór dokumentów — wymagań, historyjek użytkownika, specyfikacji projektowych, kodu — z których można wywnioskować wymagania wobec komponentu i wykorzystać je jako punkt odniesienia do definiowania warunków testowych oraz przypadków testowych."
   },
   {
-    id:30, chapter:5, chapterName:"Managing the Test Activities", kLevel:"K2",
-    question:"A test manager needs to monitor test execution progress against the plan. Which metric provides the most direct view of progress?",
-    options:[
-      "Total lines of code written by the development team per day",
-      "Number of open requirements that have not yet been baselined",
-      "Count of team members currently assigned to the project",
-      "Number of test cases executed versus the total number planned for execution"
+    "id": 29,
+    "chapter": 5,
+    "chapterName": "Zarządzanie czynnościami testowymi",
+    "kLevel": "K2",
+    "question": "Które stwierdzenie poprawnie opisuje testowanie oparte na ryzyku?",
+    "options": [
+      "Testowanie wszystkich modułów z jednakową intensywnością, aby nie pominąć żadnego obszaru",
+      "Automatyzowanie każdego przypadku testowego o wysokim ryzyku, aby zagwarantować spójne wykonanie",
+      "Przydzielanie najbardziej doświadczonych testerów wyłącznie do najbardziej złożonych modułów",
+      "Priorytetyzację wysiłku testowego zgodnie z prawdopodobieństwem i wpływem potencjalnych awarii"
     ],
-    correct:3,
-    explanation:"The ratio of executed test cases to planned test cases is a direct and widely used metric for monitoring execution progress. It clearly shows how much of the planned test coverage has been achieved."
+    "correct": 3,
+    "explanation": "Testowanie oparte na ryzyku przydziela wysiłek testowy na podstawie poziomu ryzyka, czyli połączenia prawdopodobieństwa wystąpienia defektu i wpływu jego wystąpienia. Obszary o wyższym ryzyku otrzymują intensywniejsze testowanie."
   },
   {
-    id:31, chapter:5, chapterName:"Managing the Test Activities", kLevel:"K2",
-    question:"In the ISTQB context, which of the following correctly defines 'product risk'?",
-    options:[
-      "The possibility that the software product fails to satisfy stakeholder needs",
-      "The financial risk of the project exceeding its allocated budget",
-      "The risk that the testing team will miss the planned test completion date",
-      "The risk associated with adopting new and unproven development tools"
+    "id": 30,
+    "chapter": 5,
+    "chapterName": "Zarządzanie czynnościami testowymi",
+    "kLevel": "K2",
+    "question": "Kierownik testów musi monitorować postęp wykonywania testów względem planu. Która miara daje najbardziej bezpośredni obraz postępu?",
+    "options": [
+      "Łączna liczba linii kodu pisanych dziennie przez zespół deweloperski",
+      "Liczba otwartych wymagań, które nie zostały jeszcze zbaselinowane",
+      "Liczba członków zespołu aktualnie przydzielonych do projektu",
+      "Liczba wykonanych przypadków testowych w stosunku do łącznej liczby zaplanowanych do wykonania"
     ],
-    correct:0,
-    explanation:"Product risk relates to the quality of the test object itself—the possibility that the software has defects that cause it to fail to meet business, stakeholder, or user needs. Project risks (schedule, budget) are a separate category."
+    "correct": 3,
+    "explanation": "Stosunek liczby wykonanych przypadków testowych do liczby przypadków zaplanowanych jest bezpośrednią i powszechnie stosowaną miarą monitorowania postępu wykonania. Jasno pokazuje, jaka część planowanego pokrycia testami została osiągnięta."
   },
   {
-    id:32, chapter:5, chapterName:"Managing the Test Activities", kLevel:"K2",
-    question:"Which statement most accurately describes exploratory testing?",
-    options:[
-      "A highly structured approach where all test cases are documented before any execution begins",
-      "Fully automated AI-driven testing that explores the application without human direction",
-      "A simultaneous approach in which the tester learns about the system, designs tests, and executes them dynamically",
-      "End-user testing conducted exclusively in a production-equivalent environment"
+    "id": 31,
+    "chapter": 5,
+    "chapterName": "Zarządzanie czynnościami testowymi",
+    "kLevel": "K2",
+    "question": "Która z poniższych odpowiedzi poprawnie definiuje w kontekście ISTQB „ryzyko produktowe”?",
+    "options": [
+      "Możliwość, że produkt programowy nie zaspokoi potrzeb interesariuszy",
+      "Ryzyko finansowe przekroczenia przez projekt przydzielonego budżetu",
+      "Ryzyko, że zespół testowy nie dotrzyma planowanej daty zakończenia testów",
+      "Ryzyko związane z przyjęciem nowych i niesprawdzonych narzędzi deweloperskich"
     ],
-    correct:2,
-    explanation:"Exploratory testing combines simultaneous learning, test design, and execution. The tester uses knowledge gained during testing to adapt and guide subsequent tests in real time, without predefined scripts."
+    "correct": 0,
+    "explanation": "Ryzyko produktowe dotyczy jakości samego obiektu testowego — możliwości, że oprogramowanie zawiera defekty powodujące niespełnienie potrzeb biznesowych, interesariuszy lub użytkowników. Ryzyka projektowe (harmonogram, budżet) stanowią odrębną kategorię."
   },
   {
-    id:33, chapter:5, chapterName:"Managing the Test Activities", kLevel:"K2",
-    question:"What is the primary purpose of a defect report?",
-    options:[
-      "To formally request new features discovered as missing during testing",
-      "To provide enough information for developers to reproduce, evaluate, and fix the defect",
-      "To grant official release approval for the tested component",
-      "To record time spent identifying and correcting the defect"
+    "id": 32,
+    "chapter": 5,
+    "chapterName": "Zarządzanie czynnościami testowymi",
+    "kLevel": "K2",
+    "question": "Które stwierdzenie najtrafniej opisuje testowanie eksploracyjne?",
+    "options": [
+      "Wysoce ustrukturyzowane podejście, w którym wszystkie przypadki testowe są dokumentowane przed rozpoczęciem wykonania",
+      "W pełni zautomatyzowane testowanie sterowane przez AI, które eksploruje aplikację bez udziału człowieka",
+      "Podejście równoczesne, w którym tester poznaje system, projektuje testy i dynamicznie je wykonuje",
+      "Testowanie użytkowników końcowych prowadzone wyłącznie w środowisku równoważnym produkcyjnemu"
     ],
-    correct:1,
-    explanation:"A defect report must contain sufficient information (steps to reproduce, expected vs. actual results, environment details, severity) to allow developers to reproduce, understand, and correct the defect efficiently."
+    "correct": 2,
+    "explanation": "Testowanie eksploracyjne łączy równoczesne poznawanie systemu, projektowanie testów i ich wykonywanie. Tester wykorzystuje wiedzę zdobytą podczas testowania do adaptowania i ukierunkowywania kolejnych testów w czasie rzeczywistym, bez wcześniej przygotowanych skryptów."
   },
   {
-    id:34, chapter:5, chapterName:"Managing the Test Activities", kLevel:"K3",
-    question:"A project identifies two risks: Risk X (likelihood 4/5, impact 3/5) and Risk Y (likelihood 2/5, impact 5/5). Calculating risk level as likelihood × impact, which testing priority assignment is correct?",
-    options:[
-      "Risk Y first, because it has the higher individual impact score",
-      "Risk X first, because it has the higher individual likelihood score",
-      "Risk X first, because its risk score of 12 exceeds Risk Y's score of 10",
-      "Equal priority, since neither score reaches the maximum possible value"
+    "id": 33,
+    "chapter": 5,
+    "chapterName": "Zarządzanie czynnościami testowymi",
+    "kLevel": "K2",
+    "question": "Jaki jest podstawowy cel zgłoszenia defektu?",
+    "options": [
+      "Formalne zgłoszenie nowych funkcji wykrytych podczas testów jako brakujące",
+      "Dostarczenie wystarczających informacji, aby programiści mogli odtworzyć, ocenić i naprawić defekt",
+      "Udzielenie oficjalnej zgody na wydanie testowanego komponentu",
+      "Rejestrowanie czasu poświęconego na identyfikację i usunięcie defektu"
     ],
-    correct:2,
-    explanation:"Risk level = likelihood × impact. Risk X = 4×3 = 12; Risk Y = 2×5 = 10. Risk X has the higher combined risk score and should therefore receive higher testing priority, even though Risk Y has a higher individual impact."
+    "correct": 1,
+    "explanation": "Zgłoszenie defektu musi zawierać wystarczające informacje (kroki odtworzenia, wyniki oczekiwane i rzeczywiste, szczegóły środowiska, ważność), aby programiści mogli efektywnie odtworzyć, zrozumieć i usunąć defekt."
   },
   {
-    id:35, chapter:5, chapterName:"Managing the Test Activities", kLevel:"K3",
-    question:"A tester is planning tests for a payment processing module that: (1) is business-critical, (2) contains complex logic with many edge cases, (3) had 15 defects in the previous release, and (4) was not modified in the current release. How should the tester approach this module?",
-    options:[
-      "Skip it entirely—no changes means no new defects",
-      "Run only a brief smoke test to confirm basic functions still work",
-      "Apply comprehensive risk-based testing: high criticality and defect history indicate high product risk",
-      "Automate all tests for this module and exclude it from manual testing this cycle"
+    "id": 34,
+    "chapter": 5,
+    "chapterName": "Zarządzanie czynnościami testowymi",
+    "kLevel": "K3",
+    "question": "W projekcie zidentyfikowano dwa ryzyka: Ryzyko X (prawdopodobieństwo 4/5, wpływ 3/5) oraz Ryzyko Y (prawdopodobieństwo 2/5, wpływ 5/5). Przyjmując poziom ryzyka jako prawdopodobieństwo × wpływ, które przypisanie priorytetu testów jest poprawne?",
+    "options": [
+      "Najpierw Ryzyko Y, ponieważ ma wyższy indywidualny wynik wpływu",
+      "Najpierw Ryzyko X, ponieważ ma wyższy indywidualny wynik prawdopodobieństwa",
+      "Najpierw Ryzyko X, ponieważ jego wynik ryzyka 12 jest wyższy niż wynik 10 dla Ryzyka Y",
+      "Taki sam priorytet, ponieważ żaden wynik nie osiąga maksymalnej możliwej wartości"
     ],
-    correct:2,
-    explanation:"Even without changes, the module is high-risk: business criticality, complex logic, and a history of 15 defects in the prior release all indicate high product risk. Risk-based testing requires more effort on high-risk areas regardless of whether changes were made."
-  },
-
-  // ─── CHAPTER 6 – Test Tools (5×K2) ───
-  {
-    id:36, chapter:6, chapterName:"Test Tools", kLevel:"K2",
-    question:"Which of the following is a primary benefit of test automation?",
-    options:[
-      "It completely eliminates the need for manual testing on a project",
-      "Repetitive test cases can be executed faster and more consistently than by humans",
-      "It guarantees 100% code coverage for every automated test suite",
-      "The initial setup investment is always lower than the cost of equivalent manual testing"
-    ],
-    correct:1,
-    explanation:"A primary benefit of test automation is the ability to execute repetitive test cases—such as regression suites—rapidly and consistently, without human fatigue or error. It does not eliminate manual testing or guarantee full coverage."
+    "correct": 2,
+    "explanation": "Poziom ryzyka = prawdopodobieństwo × wpływ. Dla Ryzyka X: 4×3 = 12; dla Ryzyka Y: 2×5 = 10. Ryzyko X ma wyższy łączny wynik ryzyka i dlatego powinno otrzymać wyższy priorytet testowania, mimo że Ryzyko Y ma wyższy indywidualny wpływ."
   },
   {
-    id:37, chapter:6, chapterName:"Test Tools", kLevel:"K2",
-    question:"Which type of tool measures the proportion of source code that has been exercised during test execution?",
-    options:[
-      "Test management tool",
-      "Static analysis tool",
-      "Performance testing tool",
-      "Code coverage tool"
+    "id": 35,
+    "chapter": 5,
+    "chapterName": "Zarządzanie czynnościami testowymi",
+    "kLevel": "K3",
+    "question": "Tester planuje testy dla modułu przetwarzania płatności, który: (1) jest krytyczny biznesowo, (2) zawiera złożoną logikę z wieloma przypadkami brzegowymi, (3) miał 15 defektów w poprzednim wydaniu oraz (4) nie był modyfikowany w bieżącym wydaniu. Jak należy podejść do tego modułu?",
+    "options": [
+      "Całkowicie go pominąć — brak zmian oznacza brak nowych defektów",
+      "Wykonać jedynie krótki test dymny, aby potwierdzić, że podstawowe funkcje nadal działają",
+      "Zastosować kompleksowe testowanie oparte na ryzyku: wysoka krytyczność i historia defektów wskazują na wysokie ryzyko produktowe",
+      "Zautomatyzować wszystkie testy dla tego modułu i wykluczyć go z testowania manualnego w tym cyklu"
     ],
-    correct:3,
-    explanation:"Code coverage tools instrument source code and report what percentage of statements, branches, paths, or other structural elements were executed during a test run—helping testers identify untested code areas."
+    "correct": 2,
+    "explanation": "Nawet bez zmian moduł pozostaje wysokiego ryzyka: krytyczność biznesowa, złożona logika oraz historia 15 defektów w poprzednim wydaniu wskazują na wysokie ryzyko produktowe. Testowanie oparte na ryzyku wymaga większego wysiłku w obszarach wysokiego ryzyka niezależnie od tego, czy były modyfikowane."
   },
   {
-    id:38, chapter:6, chapterName:"Test Tools", kLevel:"K2",
-    question:"Which of the following represents a significant risk when introducing test automation into a project?",
-    options:[
-      "Automated tests might run much faster than the manual team expected",
-      "Automating poorly designed test cases can create false confidence in software quality",
-      "All commercial test automation tools require expensive enterprise licenses",
-      "Automation always prevents testers from developing exploratory testing skills"
+    "id": 36,
+    "chapter": 6,
+    "chapterName": "Narzędzia testowe",
+    "kLevel": "K2",
+    "question": "Która z poniższych odpowiedzi jest podstawową korzyścią z automatyzacji testów?",
+    "options": [
+      "Całkowicie eliminuje potrzebę testowania manualnego w projekcie",
+      "Powtarzalne przypadki testowe mogą być wykonywane szybciej i bardziej konsekwentnie niż przez ludzi",
+      "Gwarantuje 100% pokrycia kodu dla każdego zautomatyzowanego zestawu testów",
+      "Początkowa inwestycja we wdrożenie jest zawsze niższa niż koszt równoważnego testowania manualnego"
     ],
-    correct:1,
-    explanation:"If the underlying test cases are poorly designed, automating them amplifies the problem—running weak tests repeatedly and producing results that give a misleading sense of security about the product's quality."
+    "correct": 1,
+    "explanation": "Podstawową korzyścią z automatyzacji testów jest możliwość szybkiego i konsekwentnego wykonywania powtarzalnych przypadków testowych, takich jak zestawy regresji, bez wpływu zmęczenia lub pomyłek człowieka. Nie eliminuje to testowania manualnego ani nie gwarantuje pełnego pokrycia."
   },
   {
-    id:39, chapter:6, chapterName:"Test Tools", kLevel:"K2",
-    question:"A team wants to simulate 5,000 concurrent users accessing their web application to evaluate behavior under peak load. Which type of tool should they use?",
-    options:[
-      "Defect tracking tool",
-      "Unit testing framework",
-      "Requirements management tool",
-      "Load testing tool"
+    "id": 37,
+    "chapter": 6,
+    "chapterName": "Narzędzia testowe",
+    "kLevel": "K2",
+    "question": "Który typ narzędzia mierzy, jaka część kodu źródłowego została wykonana podczas wykonywania testów?",
+    "options": [
+      "Narzędzie do zarządzania testami",
+      "Narzędzie do analizy statycznej",
+      "Narzędzie do testowania wydajności",
+      "Narzędzie do pomiaru pokrycia kodu"
     ],
-    correct:3,
-    explanation:"Load testing tools generate virtual user load to evaluate system behavior under specified load conditions, measuring response time, throughput, and resource utilization to identify performance bottlenecks at peak usage."
+    "correct": 3,
+    "explanation": "Narzędzia do pomiaru pokrycia kodu instrumentują kod źródłowy i raportują, jaki procent instrukcji, gałęzi, ścieżek lub innych elementów strukturalnych został wykonany podczas uruchomienia testów, pomagając identyfikować nieprzetestowane obszary kodu."
   },
   {
-    id:40, chapter:6, chapterName:"Test Tools", kLevel:"K2",
-    question:"Which statement correctly describes what static analysis tools do?",
-    options:[
-      "They execute the software and monitor its runtime behavior to detect anomalies",
-      "They analyze source code without executing it to detect potential defects and quality issues",
-      "They compare test run results against a previous baseline to identify regressions",
-      "They record and replay user interactions with the UI for regression testing purposes"
+    "id": 38,
+    "chapter": 6,
+    "chapterName": "Narzędzia testowe",
+    "kLevel": "K2",
+    "question": "Która z poniższych odpowiedzi przedstawia istotne ryzyko przy wprowadzaniu automatyzacji testów do projektu?",
+    "options": [
+      "Testy automatyczne mogą działać znacznie szybciej, niż oczekiwał zespół testów manualnych",
+      "Automatyzacja źle zaprojektowanych przypadków testowych może stworzyć fałszywe poczucie jakości oprogramowania",
+      "Wszystkie komercyjne narzędzia do automatyzacji testów wymagają drogich licencji korporacyjnych",
+      "Automatyzacja zawsze uniemożliwia testerom rozwijanie umiejętności testowania eksploracyjnego"
     ],
-    correct:1,
-    explanation:"Static analysis tools examine source code (or other artifacts) without execution, detecting potential issues such as coding standard violations, security vulnerabilities, dead code, and uninitialized variables."
+    "correct": 1,
+    "explanation": "Jeśli bazowe przypadki testowe są źle zaprojektowane, ich automatyzacja wzmacnia problem — słabe testy są uruchamiane wielokrotnie, a wyniki mogą dawać mylące poczucie bezpieczeństwa co do jakości produktu."
+  },
+  {
+    "id": 39,
+    "chapter": 6,
+    "chapterName": "Narzędzia testowe",
+    "kLevel": "K2",
+    "question": "Zespół chce zasymulować 5000 jednoczesnych użytkowników korzystających z aplikacji webowej, aby ocenić zachowanie systemu przy szczytowym obciążeniu. Jakiego typu narzędzia powinien użyć?",
+    "options": [
+      "Narzędzie do śledzenia defektów",
+      "Szkielet do testowania komponentów",
+      "Narzędzie do zarządzania wymaganiami",
+      "Narzędzie do testów obciążeniowych"
+    ],
+    "correct": 3,
+    "explanation": "Narzędzia do testów obciążeniowych generują wirtualne obciążenie użytkownikami, aby ocenić zachowanie systemu w określonych warunkach obciążenia, mierząc czas odpowiedzi, przepustowość i wykorzystanie zasobów w celu zidentyfikowania wąskich gardeł wydajnościowych przy szczytowym użyciu."
+  },
+  {
+    "id": 40,
+    "chapter": 6,
+    "chapterName": "Narzędzia testowe",
+    "kLevel": "K2",
+    "question": "Które stwierdzenie poprawnie opisuje działanie narzędzi do analizy statycznej?",
+    "options": [
+      "Wykonują oprogramowanie i monitorują jego zachowanie w czasie działania, aby wykrywać anomalie",
+      "Analizują kod źródłowy bez jego wykonywania, aby wykrywać potencjalne defekty i problemy jakościowe",
+      "Porównują wyniki uruchomień testów z wcześniejszą bazą odniesienia, aby identyfikować regresje",
+      "Rejestrują i odtwarzają interakcje użytkownika z interfejsem do celów testowania regresyjnego"
+    ],
+    "correct": 1,
+    "explanation": "Narzędzia do analizy statycznej badają kod źródłowy (lub inne artefakty) bez wykonywania, wykrywając potencjalne problemy, takie jak naruszenia standardów kodowania, podatności bezpieczeństwa, martwy kod czy niezainicjalizowane zmienne."
   }
 ];
 
