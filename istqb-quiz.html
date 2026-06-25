@@ -1,0 +1,1326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ISTQB CTFL v4.0 – Symulacja egzaminu</title>
+<style>
+  :root {
+    --blue-dark:  #003399;
+    --blue-mid:   #0055cc;
+    --blue-light: #e8f0ff;
+    --blue-bg:    #f0f4ff;
+    --green:      #1a8a3c;
+    --green-bg:   #d4edda;
+    --red:        #c0392b;
+    --red-bg:     #fde8e6;
+    --gray:       #6c757d;
+    --border:     #ced4da;
+    --white:      #ffffff;
+    --text:       #1a1a2e;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: var(--blue-bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: var(--blue-dark);
+    color: var(--white);
+    padding: 0;
+  }
+  .header-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 14px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+  .header-logo {
+    font-size: 1.4rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    flex: 1;
+  }
+  .header-logo span { color: #7fb3ff; }
+  #timer {
+    font-size: 1.25rem;
+    font-weight: 700;
+    background: rgba(255,255,255,.12);
+    padding: 6px 16px;
+    border-radius: 6px;
+    font-variant-numeric: tabular-nums;
+    min-width: 90px;
+    text-align: center;
+  }
+  #timer.warning { background: #cc4400; }
+  #timer.danger  { background: #aa0000; animation: pulse 1s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.7} }
+
+  /* ── PROGRESS ── */
+  .progress-bar-wrap {
+    background: var(--blue-mid);
+    padding: 8px 0 0;
+  }
+  .progress-bar-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: 0 20px 8px;
+  }
+  .progress-label {
+    color: #b8d0ff;
+    font-size: .82rem;
+    margin-bottom: 4px;
+    display: flex;
+    justify-content: space-between;
+  }
+  .progress-track {
+    height: 8px;
+    background: rgba(255,255,255,.25);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%;
+    background: #7fb3ff;
+    border-radius: 4px;
+    transition: width .4s ease;
+    width: 0%;
+  }
+
+  /* ── MAIN CARD ── */
+  main {
+    max-width: 860px;
+    margin: 28px auto;
+    padding: 0 16px 40px;
+  }
+  .card {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,51,153,.12);
+    overflow: hidden;
+  }
+  .card-header {
+    background: var(--blue-light);
+    padding: 14px 24px;
+    border-bottom: 2px solid var(--blue-mid);
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .badge {
+    display: inline-block;
+    padding: 3px 10px;
+    border-radius: 20px;
+    font-size: .78rem;
+    font-weight: 600;
+    background: var(--blue-mid);
+    color: var(--white);
+  }
+  .badge.k1 { background: #6c757d; }
+  .badge.k2 { background: #0055cc; }
+  .badge.k3 { background: #003399; }
+  .badge.chapter { background: #e8f0ff; color: var(--blue-dark); border: 1px solid #b0c8ff; }
+  .card-body { padding: 28px 28px 20px; }
+  .question-text {
+    font-size: 1.08rem;
+    line-height: 1.65;
+    font-weight: 500;
+    margin-bottom: 22px;
+    color: var(--text);
+  }
+
+  /* ── OPTIONS ── */
+  .options { display: flex; flex-direction: column; gap: 10px; }
+  .option-btn {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    width: 100%;
+    background: #f8f9fe;
+    border: 2px solid var(--border);
+    border-radius: 8px;
+    padding: 13px 18px;
+    cursor: pointer;
+    font-size: .97rem;
+    line-height: 1.5;
+    text-align: left;
+    transition: border-color .15s, background .15s, transform .1s;
+    color: var(--text);
+  }
+  .option-btn:hover:not(:disabled) {
+    border-color: var(--blue-mid);
+    background: var(--blue-light);
+    transform: translateX(3px);
+  }
+  .option-btn .opt-letter {
+    min-width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: var(--blue-mid);
+    color: white;
+    font-weight: 700;
+    font-size: .88rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .option-btn.correct {
+    border-color: var(--green);
+    background: var(--green-bg);
+  }
+  .option-btn.correct .opt-letter { background: var(--green); }
+  .option-btn.incorrect {
+    border-color: var(--red);
+    background: var(--red-bg);
+  }
+  .option-btn.incorrect .opt-letter { background: var(--red); }
+  .option-btn.show-correct {
+    border-color: var(--green);
+    background: var(--green-bg);
+    opacity: .85;
+  }
+  .option-btn.show-correct .opt-letter { background: var(--green); }
+  .option-btn:disabled { cursor: default; transform: none; }
+
+  /* ── FEEDBACK ── */
+  .feedback {
+    margin-top: 18px;
+    padding: 14px 18px;
+    border-radius: 8px;
+    font-size: .93rem;
+    line-height: 1.55;
+    display: none;
+  }
+  .feedback.correct { background: var(--green-bg); border-left: 4px solid var(--green); color: #155724; }
+  .feedback.incorrect { background: var(--red-bg); border-left: 4px solid var(--red); color: #721c24; }
+  .feedback-title { font-weight: 700; margin-bottom: 5px; font-size: 1rem; }
+
+  /* ── FOOTER ACTIONS ── */
+  .card-footer {
+    padding: 16px 28px 24px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+  }
+  .btn {
+    padding: 11px 28px;
+    border-radius: 7px;
+    font-size: .97rem;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: background .15s, transform .1s;
+  }
+  .btn:active { transform: scale(.97); }
+  .btn-primary {
+    background: var(--blue-dark);
+    color: var(--white);
+  }
+  .btn-primary:hover { background: var(--blue-mid); }
+  .btn-secondary {
+    background: #e9ecef;
+    color: var(--text);
+  }
+  .btn-secondary:hover { background: #dee2e6; }
+  .btn:disabled { opacity: .5; cursor: default; transform: none; }
+  #btn-next { display: none; }
+
+  /* ── RESULTS ── */
+  #screen-results { display: none; }
+  .result-hero {
+    text-align: center;
+    padding: 36px 24px 24px;
+  }
+  .result-score {
+    font-size: 4rem;
+    font-weight: 800;
+    color: var(--blue-dark);
+    line-height: 1;
+  }
+  .result-score .of { font-size: 1.8rem; font-weight: 400; color: var(--gray); }
+  .result-pct {
+    font-size: 1.4rem;
+    color: var(--gray);
+    margin: 4px 0 14px;
+  }
+  .result-verdict {
+    display: inline-block;
+    padding: 8px 28px;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .result-verdict.pass { background: var(--green-bg); color: var(--green); border: 2px solid var(--green); }
+  .result-verdict.fail { background: var(--red-bg); color: var(--red); border: 2px solid var(--red); }
+  .result-threshold { font-size: .88rem; color: var(--gray); margin-top: 4px; }
+
+  .result-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    padding: 0 24px 28px;
+  }
+  @media(max-width:560px){ .result-grid { grid-template-columns: 1fr; } }
+  .result-section {
+    background: var(--blue-light);
+    border-radius: 10px;
+    padding: 18px 20px;
+  }
+  .result-section h3 {
+    font-size: .88rem;
+    text-transform: uppercase;
+    letter-spacing: .8px;
+    color: var(--blue-mid);
+    margin-bottom: 12px;
+  }
+  .result-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    border-bottom: 1px solid #cdd8f5;
+    font-size: .9rem;
+    gap: 8px;
+  }
+  .result-row:last-child { border: none; }
+  .result-row .label { flex: 1; }
+  .result-row .score-num { font-weight: 700; white-space: nowrap; }
+  .mini-bar-wrap { flex: 0 0 70px; height: 8px; background: #c8d8f8; border-radius: 4px; overflow: hidden; }
+  .mini-bar { height: 100%; background: var(--blue-mid); border-radius: 4px; }
+
+  .result-actions {
+    padding: 0 24px 28px;
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  /* ── REVIEW ── */
+  #screen-review { display: none; }
+  .review-header {
+    padding: 20px 28px 10px;
+    border-bottom: 2px solid var(--blue-light);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .review-header h2 { font-size: 1.1rem; color: var(--blue-dark); flex: 1; }
+  .review-item {
+    padding: 20px 28px;
+    border-bottom: 1px solid #e8ecf8;
+  }
+  .review-item:last-child { border: none; }
+  .review-meta {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .review-q-num { font-weight: 700; color: var(--blue-dark); }
+  .review-verdict {
+    font-size: .8rem;
+    font-weight: 700;
+    padding: 2px 10px;
+    border-radius: 12px;
+  }
+  .review-verdict.correct { background: var(--green-bg); color: var(--green); }
+  .review-verdict.incorrect { background: var(--red-bg); color: var(--red); }
+  .review-question { font-size: .97rem; font-weight: 500; margin-bottom: 10px; line-height: 1.55; }
+  .review-options { display: flex; flex-direction: column; gap: 6px; }
+  .review-option {
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: .9rem;
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    border: 1.5px solid transparent;
+  }
+  .review-option.correct { background: var(--green-bg); border-color: var(--green); }
+  .review-option.user-wrong { background: var(--red-bg); border-color: var(--red); }
+  .review-option .ro-letter { font-weight: 700; min-width: 20px; }
+  .review-expl {
+    margin-top: 10px;
+    font-size: .88rem;
+    color: #555;
+    background: #f8f9fe;
+    padding: 10px 14px;
+    border-radius: 6px;
+    border-left: 3px solid var(--blue-mid);
+    line-height: 1.55;
+  }
+
+  /* ── START SCREEN ── */
+  #screen-start { display: block; }
+  #screen-quiz  { display: none; }
+  .start-card {
+    background: var(--white);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,51,153,.12);
+    padding: 40px 36px;
+    text-align: center;
+  }
+  .start-logo {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--blue-dark);
+    margin-bottom: 4px;
+  }
+  .start-sub { color: var(--gray); font-size: 1rem; margin-bottom: 28px; }
+  .start-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 14px;
+    margin-bottom: 28px;
+    text-align: left;
+  }
+  @media(max-width:540px){ .start-grid { grid-template-columns: 1fr; } }
+  .start-info-box {
+    background: var(--blue-light);
+    border-radius: 8px;
+    padding: 14px 16px;
+    border: 1px solid #b8d0ff;
+  }
+  .start-info-box .sib-label { font-size: .75rem; text-transform: uppercase; letter-spacing: .6px; color: var(--blue-mid); margin-bottom: 4px; }
+  .start-info-box .sib-value { font-size: 1.1rem; font-weight: 700; color: var(--blue-dark); }
+  .start-info-box .sib-sub { font-size: .8rem; color: var(--gray); margin-top: 2px; }
+  .start-table { width: 100%; border-collapse: collapse; margin-bottom: 28px; font-size: .9rem; text-align: left; }
+  .start-table th { background: var(--blue-dark); color: white; padding: 8px 12px; font-weight: 600; }
+  .start-table td { padding: 7px 12px; border-bottom: 1px solid #e8ecf8; }
+  .start-table tr:nth-child(even) td { background: var(--blue-light); }
+  .start-table .tot { font-weight: 700; }
+  .start-rules { text-align: left; background: var(--blue-light); border-radius: 8px; padding: 16px 20px; margin-bottom: 28px; }
+  .start-rules h3 { color: var(--blue-dark); margin-bottom: 8px; font-size: .95rem; }
+  .start-rules ul { padding-left: 18px; font-size: .9rem; line-height: 1.8; color: #333; }
+
+  /* ── UTILS ── */
+  .hidden { display: none !important; }
+  @media(max-width:540px){
+    .card-body { padding: 18px 16px 14px; }
+    .card-footer { padding: 12px 16px 20px; }
+    .result-hero { padding: 24px 16px 16px; }
+    .result-grid { padding: 0 16px 20px; }
+    .result-actions { padding: 0 16px 20px; }
+    .review-item { padding: 16px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ════════════════ HEADER ════════════════ -->
+<header>
+  <div class="header-inner">
+    <div class="header-logo">ISTQB <span>CTFL v4.0</span></div>
+    <div id="timer">60:00</div>
+  </div>
+  <div class="progress-bar-wrap" id="progress-wrap" style="display:none">
+    <div class="progress-bar-inner">
+      <div class="progress-label">
+        <span id="progress-text">Pytanie 1 z 40</span>
+        <span id="progress-pct">0%</span>
+      </div>
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+    </div>
+  </div>
+</header>
+
+<!-- ════════════════ START SCREEN ════════════════ -->
+<main>
+<div id="screen-start">
+  <div class="start-card">
+    <div class="start-logo">🎓 Symulacja Egzaminu ISTQB</div>
+    <div class="start-sub">Foundation Level – CTFL v4.0 &nbsp;|&nbsp; Pełny egzamin (40 pytań)</div>
+
+    <div class="start-grid">
+      <div class="start-info-box">
+        <div class="sib-label">Pytania</div>
+        <div class="sib-value">40</div>
+        <div class="sib-sub">jedyna poprawna odpowiedź</div>
+      </div>
+      <div class="start-info-box">
+        <div class="sib-label">Czas</div>
+        <div class="sib-value">60 min</div>
+        <div class="sib-sub">odliczanie startuje razem z quizem</div>
+      </div>
+      <div class="start-info-box">
+        <div class="sib-label">Próg zdawalności</div>
+        <div class="sib-value">65%</div>
+        <div class="sib-sub">minimum 26 z 40 punktów</div>
+      </div>
+    </div>
+
+    <table class="start-table">
+      <thead><tr><th>Rozdział</th><th>K1</th><th>K2</th><th>K3</th><th>Suma</th></tr></thead>
+      <tbody>
+        <tr><td>1. Podstawy testowania</td><td>2</td><td>4</td><td>0</td><td class="tot">6</td></tr>
+        <tr><td>2. Testowanie w cyklu życia</td><td>2</td><td>4</td><td>0</td><td class="tot">6</td></tr>
+        <tr><td>3. Testowanie statyczne</td><td>0</td><td>3</td><td>0</td><td class="tot">3</td></tr>
+        <tr><td>4. Techniki testowania</td><td>0</td><td>3</td><td>8</td><td class="tot">11</td></tr>
+        <tr><td>5. Zarządzanie testami</td><td>0</td><td>7</td><td>2</td><td class="tot">9</td></tr>
+        <tr><td>6. Narzędzia wspierające</td><td>0</td><td>5</td><td>0</td><td class="tot">5</td></tr>
+        <tr style="background:#e8f0ff;font-weight:700"><td><b>Razem</b></td><td>4</td><td>26</td><td>10</td><td>40</td></tr>
+      </tbody>
+    </table>
+
+    <div class="start-rules">
+      <h3>📋 Zasady egzaminu</h3>
+      <ul>
+        <li>Każde pytanie ma <strong>dokładnie jedną</strong> poprawną odpowiedź (A/B/C/D)</li>
+        <li>Po kliknięciu odpowiedzi pojawi się natychmiastowy feedback i wyjaśnienie</li>
+        <li>Pytania są w języku angielskim (jak na oficjalnym egzaminie ISTQB)</li>
+        <li>Interfejs jest po polsku</li>
+        <li>Po zakończeniu zobaczysz wynik z rozkładem per rozdział i per poziom K</li>
+      </ul>
+    </div>
+
+    <button class="btn btn-primary" onclick="startQuiz()" style="font-size:1.05rem;padding:14px 48px">
+      ▶&nbsp; Rozpocznij egzamin
+    </button>
+  </div>
+</div>
+
+<!-- ════════════════ QUIZ SCREEN ════════════════ -->
+<div id="screen-quiz">
+  <div class="card">
+    <div class="card-header" id="q-meta"></div>
+    <div class="card-body">
+      <div class="question-text" id="q-text"></div>
+      <div class="options" id="q-options"></div>
+      <div class="feedback" id="q-feedback">
+        <div class="feedback-title" id="fb-title"></div>
+        <div id="fb-body"></div>
+      </div>
+    </div>
+    <div class="card-footer">
+      <button class="btn btn-primary" id="btn-next" onclick="nextQuestion()">Następne pytanie →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ RESULTS SCREEN ════════════════ -->
+<div id="screen-results">
+  <div class="card">
+    <div class="result-hero">
+      <div style="font-size:1.1rem;color:var(--gray);margin-bottom:8px">Wynik egzaminu</div>
+      <div class="result-score">
+        <span id="res-score">0</span>
+        <span class="of">&nbsp;/&nbsp;40</span>
+      </div>
+      <div class="result-pct" id="res-pct">0%</div>
+      <div class="result-verdict" id="res-verdict">—</div>
+      <div class="result-threshold">Próg zdawalności: 65% (26/40 punktów)</div>
+    </div>
+
+    <div class="result-grid">
+      <div class="result-section">
+        <h3>Rozkład per rozdział</h3>
+        <div id="res-chapters"></div>
+      </div>
+      <div class="result-section">
+        <h3>Rozkład per poziom K</h3>
+        <div id="res-klevels"></div>
+      </div>
+    </div>
+
+    <div class="result-actions">
+      <button class="btn btn-secondary" onclick="showReview()">🔍 Przejrzyj odpowiedzi</button>
+      <button class="btn btn-primary" onclick="restartQuiz()">🔄 Rozpocznij od nowa</button>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════ REVIEW SCREEN ════════════════ -->
+<div id="screen-review">
+  <div class="card">
+    <div class="review-header">
+      <h2>📝 Przegląd odpowiedzi</h2>
+      <button class="btn btn-secondary" onclick="showResults()">← Wróć do wyników</button>
+    </div>
+    <div id="review-body"></div>
+  </div>
+</div>
+
+</main>
+
+<script>
+// ═══════════════════════════════════════════════════════════
+// QUESTIONS  –  40 questions, ISTQB CTFL v4.0
+// chapter: 1-6 | kLevel: "K1","K2","K3"
+// correct: 0=A, 1=B, 2=C, 3=D
+// ═══════════════════════════════════════════════════════════
+const questions = [
+
+  // ─── CHAPTER 1 – Fundamentals of Testing (2×K1, 4×K2) ───
+  {
+    id:1, chapter:1, chapterName:"Fundamentals of Testing", kLevel:"K1",
+    question:"Which of the following is the correct ISTQB definition of a 'defect'?",
+    options:[
+      "A human action that produces an incorrect result",
+      "The inability of a system to perform a required function",
+      "An imperfection or deficiency in a work product",
+      "A formal record of an unexpected system behavior"
+    ],
+    correct:2,
+    explanation:"A defect (bug/fault) is an imperfection or deficiency in a work product. The human action causing it is an 'error'; what happens at runtime when the defect is triggered is a 'failure'."
+  },
+  {
+    id:2, chapter:1, chapterName:"Fundamentals of Testing", kLevel:"K1",
+    question:"Which of the following is NOT a typical objective of testing according to ISTQB CTFL v4.0?",
+    options:[
+      "Providing information to stakeholders for decision-making",
+      "Finding defects before the software is released",
+      "Building confidence in the quality of the test object",
+      "Proving the software is completely free of defects"
+    ],
+    correct:3,
+    explanation:"Proving software is entirely defect-free is NOT a testing objective—it is impossible. Testing can only demonstrate the presence of defects, not their absence (Testing Principle 1)."
+  },
+  {
+    id:3, chapter:1, chapterName:"Fundamentals of Testing", kLevel:"K2",
+    question:"A tester notices that the same regression test suite has stopped finding new defects even though the team suspects bugs still exist in the system. Which testing principle best explains this situation?",
+    options:[
+      "Defect clustering",
+      "Absence-of-errors fallacy",
+      "Pesticide paradox",
+      "Testing is context dependent"
+    ],
+    correct:2,
+    explanation:"The Pesticide Paradox (Principle 5) states that if the same tests are run repeatedly, they eventually stop finding new defects. Test cases must be regularly reviewed and updated to remain effective."
+  },
+  {
+    id:4, chapter:1, chapterName:"Fundamentals of Testing", kLevel:"K2",
+    question:"Analysis of defect data from a banking application shows that 80% of defects came from just 4 out of 25 modules. Which testing principle does this illustrate?",
+    options:[
+      "Defect clustering",
+      "Testing shows presence of defects, not their absence",
+      "Early testing saves time and money",
+      "Exhaustive testing is impossible"
+    ],
+    correct:0,
+    explanation:"Defect Clustering (Principle 4) states that a small number of modules usually contain most of the defects, reflecting the Pareto principle applied to software quality."
+  },
+  {
+    id:5, chapter:1, chapterName:"Fundamentals of Testing", kLevel:"K2",
+    question:"Which statement correctly distinguishes verification from validation in software testing?",
+    options:[
+      "Verification confirms the product was built right; validation confirms the right product was built",
+      "Verification is performed only by testers; validation is performed only by developers",
+      "Verification uses dynamic testing; validation always uses static techniques",
+      "Verification is done at system level; validation is done at unit level"
+    ],
+    correct:0,
+    explanation:"Verification asks 'Are we building the product right?' (conformance to specifications), while Validation asks 'Are we building the right product?' (meeting actual user needs and expectations)."
+  },
+  {
+    id:6, chapter:1, chapterName:"Fundamentals of Testing", kLevel:"K2",
+    question:"Which explanation best describes why testing early in the development lifecycle is more cost-effective?",
+    options:[
+      "Early test environments are cheaper to set up than later ones",
+      "Testers are more productive at the beginning of a project",
+      "The cost of fixing defects increases significantly the later they are discovered",
+      "Early test cases can be reused without modification throughout the entire project"
+    ],
+    correct:2,
+    explanation:"Early Testing (Principle 3) recognizes that defects found in requirements or design phases cost much less to fix than those discovered after release. The cost of correction grows exponentially with each phase."
+  },
+
+  // ─── CHAPTER 2 – Testing Throughout the SDLC (2×K1, 4×K2) ───
+  {
+    id:7, chapter:2, chapterName:"Testing Throughout the SDLC", kLevel:"K1",
+    question:"Which test level focuses on testing interactions and interfaces between integrated components or subsystems?",
+    options:[
+      "Unit testing",
+      "System testing",
+      "Acceptance testing",
+      "Integration testing"
+    ],
+    correct:3,
+    explanation:"Integration testing verifies that components or subsystems work together correctly, focusing on the interfaces and data flows between them—not on individual components in isolation."
+  },
+  {
+    id:8, chapter:2, chapterName:"Testing Throughout the SDLC", kLevel:"K1",
+    question:"Which test type evaluates attributes such as response time, throughput, and resource consumption under specified load conditions?",
+    options:[
+      "Security testing",
+      "Usability testing",
+      "Compatibility testing",
+      "Performance testing"
+    ],
+    correct:3,
+    explanation:"Performance testing evaluates how a system behaves under a given workload, measuring attributes such as response time, throughput, and resource utilization to identify performance bottlenecks."
+  },
+  {
+    id:9, chapter:2, chapterName:"Testing Throughout the SDLC", kLevel:"K2",
+    question:"In an Agile development environment, which statement best describes how testing activities are typically organized?",
+    options:[
+      "Testing is integrated throughout the sprint, with testers collaborating closely with developers",
+      "A dedicated QA phase is executed after every sprint is complete",
+      "Only automated testing is used; manual testing is eliminated entirely",
+      "Acceptance testing replaces all other test levels in Agile projects"
+    ],
+    correct:0,
+    explanation:"In Agile, testing is continuous and collaborative—testers work within the same sprint alongside developers, participating in planning, definition of done, and test execution rather than in a separate phase."
+  },
+  {
+    id:10, chapter:2, chapterName:"Testing Throughout the SDLC", kLevel:"K2",
+    question:"What is the primary purpose of confirmation testing (also called re-testing)?",
+    options:[
+      "To detect new defects introduced by recent code changes",
+      "To verify that a previously identified defect has been successfully corrected",
+      "To measure whether the system meets its performance targets",
+      "To validate the system against user acceptance criteria"
+    ],
+    correct:1,
+    explanation:"Confirmation testing re-executes the specific test cases that originally revealed a defect, to confirm it has been fixed. This is distinct from regression testing, which checks for unintended side effects of changes."
+  },
+  {
+    id:11, chapter:2, chapterName:"Testing Throughout the SDLC", kLevel:"K2",
+    question:"A project follows the V-model. Which statement correctly describes the relationship between development phases and test levels?",
+    options:[
+      "Each development phase has a corresponding test level that is planned in parallel with it",
+      "Testing only begins after all development phases are fully complete",
+      "Test phases are executed in the same sequential order as development phases",
+      "The V-model does not support unit testing"
+    ],
+    correct:0,
+    explanation:"In the V-model, each development phase (requirements, system design, detail design, coding) has a corresponding test level (acceptance, system, integration, unit testing) planned in parallel, even though test execution occurs after coding."
+  },
+  {
+    id:12, chapter:2, chapterName:"Testing Throughout the SDLC", kLevel:"K2",
+    question:"Which statement best distinguishes functional testing from non-functional testing?",
+    options:[
+      "Functional testing uses only black-box techniques; non-functional testing always requires source code access",
+      "Functional testing verifies what the system does; non-functional testing evaluates how well it does it",
+      "Functional testing is always automated; non-functional testing must be performed manually",
+      "Functional testing is restricted to unit level; non-functional testing is restricted to system level"
+    ],
+    correct:1,
+    explanation:"Functional testing checks whether the system performs its specified functions correctly (e.g., login, calculate). Non-functional testing evaluates quality characteristics—how well the system performs those functions—such as speed, usability, and security."
+  },
+
+  // ─── CHAPTER 3 – Static Testing (3×K2) ───
+  {
+    id:13, chapter:3, chapterName:"Static Testing", kLevel:"K2",
+    question:"Which of the following is an advantage that static testing has over dynamic testing?",
+    options:[
+      "Static testing always finds more defects per hour than dynamic testing",
+      "Static testing provides direct evidence of the system's runtime behavior",
+      "Static testing makes test environments unnecessary for the entire project",
+      "Static testing can be applied to non-executable artifacts such as requirements and design documents"
+    ],
+    correct:3,
+    explanation:"A key advantage of static testing is that it can evaluate non-executable work products (requirements, specifications, design documents, test plans). Dynamic testing requires executable software and cannot directly assess these artifacts."
+  },
+  {
+    id:14, chapter:3, chapterName:"Static Testing", kLevel:"K2",
+    question:"Which defect type is most likely to be detected by static analysis but NOT by dynamic testing?",
+    options:[
+      "Code that can never be reached during any execution path",
+      "A calculation error producing incorrect numeric output",
+      "A UI layout that confuses end users during task completion",
+      "Incorrect behavior when the system processes large input files"
+    ],
+    correct:0,
+    explanation:"Unreachable (dead) code can be identified by static analysis tools by examining code structure without execution. Dynamic testing cannot detect dead code because such code is never executed, regardless of the test cases used."
+  },
+  {
+    id:15, chapter:3, chapterName:"Static Testing", kLevel:"K2",
+    question:"In a formal review, which role is primarily responsible for planning, facilitating, and ensuring the review follows the defined process?",
+    options:[
+      "The author of the work product under review",
+      "The scribe who documents defects during the review meeting",
+      "The moderator",
+      "The review manager who initiated the review"
+    ],
+    correct:2,
+    explanation:"The moderator plans and facilitates the formal review meeting—scheduling, distributing materials, leading the meeting, and ensuring the review process is followed. Finding defects is the role of reviewers, not the moderator."
+  },
+
+  // ─── CHAPTER 4 – Test Techniques (3×K2, 8×K3) ───
+  {
+    id:16, chapter:4, chapterName:"Test Analysis and Design", kLevel:"K2",
+    question:"Which of the following test design techniques is classified as a white-box (structure-based) technique?",
+    options:[
+      "Equivalence partitioning",
+      "Decision table testing",
+      "Use case testing",
+      "Statement coverage"
+    ],
+    correct:3,
+    explanation:"Statement coverage is a white-box technique requiring knowledge of the internal code structure to determine which statements have been executed. Equivalence partitioning, decision table testing, and use case testing are black-box techniques."
+  },
+  {
+    id:17, chapter:4, chapterName:"Test Analysis and Design", kLevel:"K2",
+    question:"Which statement best describes the underlying principle of equivalence partitioning?",
+    options:[
+      "Input values are divided into groups where all values in a group are expected to be processed identically",
+      "All possible input combinations must be tested to achieve complete coverage",
+      "Values at and just beyond the boundaries of valid ranges are the most fault-revealing",
+      "The system's valid state sequences are modeled and tested for completeness"
+    ],
+    correct:0,
+    explanation:"Equivalence Partitioning divides the input domain into partitions where every value within a partition is expected to trigger identical behavior. Testing one representative value per partition is sufficient—if one value works, all should work."
+  },
+  {
+    id:18, chapter:4, chapterName:"Test Analysis and Design", kLevel:"K2",
+    question:"For which scenario is decision table testing the most appropriate technique to apply?",
+    options:[
+      "Testing sequences of user interactions that navigate through multiple screens",
+      "Testing input values at or near the edges of valid numeric ranges",
+      "Testing system behavior that depends on combinations of multiple conditions",
+      "Testing state changes triggered by specific external events over time"
+    ],
+    correct:2,
+    explanation:"Decision table testing is ideal when system behavior (output/action) is determined by combinations of conditions (business rules), ensuring every combination of condition values is tested."
+  },
+  {
+    id:19, chapter:4, chapterName:"Test Analysis and Design", kLevel:"K3",
+    question:"A system accepts discount percentages entered by sales staff. Valid input is 0% to 30% inclusive; anything outside is rejected. Using equivalence partitioning, which test set correctly covers one valid partition AND one invalid partition?",
+    options:[
+      "10% and 20%",
+      "0% and 30%",
+      "15% and 35%",
+      "-5% and -10%"
+    ],
+    correct:2,
+    explanation:"The valid partition is 0–30%. Invalid partitions are below 0% and above 30%. Option C uses 15% (from the valid partition) and 35% (from the invalid partition above 30%), correctly covering one of each."
+  },
+  {
+    id:20, chapter:4, chapterName:"Test Analysis and Design", kLevel:"K3",
+    question:"A hotel booking form accepts 'number of guests' as an integer from 1 to 8 (inclusive). Applying 2-value Boundary Value Analysis, which test set is most appropriate?",
+    options:[
+      "1, 4, 8",
+      "0, 1, 8, 9",
+      "1, 2, 7, 8",
+      "0, 1, 2, 7, 8, 9"
+    ],
+    correct:1,
+    explanation:"2-value BVA tests each boundary and the adjacent value just outside it. Lower boundary: 0 (just below) and 1 (minimum). Upper boundary: 8 (maximum) and 9 (just above). Correct set: {0, 1, 8, 9}."
+  },
+  {
+    id:21, chapter:4, chapterName:"Test Analysis and Design", kLevel:"K3",
+    question:"An online shop charges: €0 shipping for orders under €50, €5 for €50–€99, €10 for €100 and above (whole euro amounts only). A tester applies 3-value BVA to the €50 boundary. Which values must be included?",
+    options:[
+      "49, 50, 51",
+      "48, 50, 52",
+      "50, 75, 100",
+      "49, 50"
+    ],
+    correct:0,
+    explanation:"3-value BVA tests the boundary value and one value on each side. At the €50 boundary: 49 (last value in free-shipping partition), 50 (first value in €5-shipping partition), 51 (one inside the €5 partition). Set: {49, 50, 51}."
+  },
+  {
+    id:22, chapter:4, chapterName:"Test Analysis and Design", kLevel:"K3",
+    question:"A system grants admin access only when BOTH conditions are true: the user account is 'Active' AND the user has the 'Admin' role. Both conditions are independently yes/no. How many test cases are needed in the decision table to cover all unique combinations?",
+    options:[
+      "2",
+      "3",
+      "8",
+      "4"
+    ],
+    correct:3,
+    explanation:"With 2 binary conditions (Active: Y/N, Admin: Y/N), there are 2² = 4 possible combinations: (Y,Y), (Y,N), (N,Y), (N,N). A complete decision table requires one test case per combination, giving 4 test cases."
+  },
+  {
+    id:23, chapter:4, chapterName:"Test Analysis and Design", kLevel:"K3",
+    question:"An ATM has states: Idle, Card Inserted, PIN Entered, Transaction Complete. Valid transitions: Idle→Card Inserted, Card Inserted→PIN Entered, PIN Entered→Transaction Complete, Transaction Complete→Idle, and Card Inserted→Idle (card ejected without PIN). How many test cases achieve 100% transition coverage?",
+    options:[
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    correct:2,
+    explanation:"Transition coverage requires at least one test case per valid transition. The ATM has exactly 5 valid transitions listed. Therefore, 5 test cases are needed for 100% transition coverage."
+  },
+  {
+    id:24, chapter:4, chapterName:"Test Analysis and Design", kLevel:"K3",
+    question:"A function contains: if (temperature > 100) { triggerAlert(); } else { logNormal(); }. How many test cases are required to achieve 100% branch coverage?",
+    options:[
+      "1",
+      "2",
+      "3",
+      "4"
+    ],
+    correct:1,
+    explanation:"Branch coverage requires exercising every branch (true and false) of each decision. This if-else has exactly 2 branches. Two test cases suffice: one where temperature > 100 (true branch) and one where it is not (false branch)."
+  },
+  {
+    id:25, chapter:4, chapterName:"Test Analysis and Design", kLevel:"K3",
+    question:"A coverage tool reports that a test suite executed 40 out of 50 executable statements in a module. What is the achieved statement coverage, and how many additional statements need to be executed to reach 100%?",
+    options:[
+      "80% coverage; 10 more statements needed",
+      "80% coverage; 50 more statements needed",
+      "40% coverage; 10 more statements needed",
+      "75% coverage; 15 more statements needed"
+    ],
+    correct:0,
+    explanation:"Statement coverage = (executed / total) × 100 = (40/50) × 100 = 80%. To achieve 100%, the remaining 50 − 40 = 10 unexecuted statements must be covered by additional test cases."
+  },
+  {
+    id:26, chapter:4, chapterName:"Test Analysis and Design", kLevel:"K3",
+    question:"A tester applies state transition testing to a subscription system with states: Free Trial, Active, Suspended, Cancelled. After mapping 6 valid transitions, the tester also writes test cases attempting transitions that the system should reject (e.g., Cancelled → Suspended). What type of testing do these additional test cases represent?",
+    options:[
+      "Boundary value testing applied to system states",
+      "Negative testing using invalid state transitions",
+      "Equivalence partitioning of the state space",
+      "Decision table coverage for state logic"
+    ],
+    correct:1,
+    explanation:"Testing transitions that should NOT be possible is negative testing within state transition testing. It verifies that the system correctly rejects invalid transitions, rather than inadvertently allowing them."
+  },
+
+  // ─── CHAPTER 5 – Managing the Test Activities (7×K2, 2×K3) ───
+  {
+    id:27, chapter:5, chapterName:"Managing the Test Activities", kLevel:"K2",
+    question:"Which of the following best describes the purpose of a test plan?",
+    options:[
+      "To list all defects discovered during the test execution phase",
+      "To specify the scope, approach, resources, and schedule of testing activities",
+      "To record which test cases passed or failed during execution",
+      "To document the root causes of all identified defects"
+    ],
+    correct:1,
+    explanation:"A test plan documents the scope, strategy, resources, schedule, and objectives of testing activities. It communicates the testing approach to all stakeholders and serves as a guide for the testing effort."
+  },
+  {
+    id:28, chapter:5, chapterName:"Managing the Test Activities", kLevel:"K2",
+    question:"What does the term 'test basis' refer to in the context of test analysis?",
+    options:[
+      "The hardware and software infrastructure that makes up the test environment",
+      "All documentation and information from which test conditions can be derived",
+      "The baseline software version used as a reference for regression testing",
+      "The primary test management tool used to organize and track test cases"
+    ],
+    correct:1,
+    explanation:"The test basis is the body of documentation—requirements, user stories, design specifications, code—from which the requirements of a component can be inferred and used as the reference for defining test conditions and test cases."
+  },
+  {
+    id:29, chapter:5, chapterName:"Managing the Test Activities", kLevel:"K2",
+    question:"Which statement correctly describes risk-based testing?",
+    options:[
+      "Testing all modules with equal depth to ensure no area is overlooked",
+      "Automating every high-risk test case to guarantee consistent execution",
+      "Assigning the most experienced testers exclusively to the most complex modules",
+      "Prioritizing test effort according to the likelihood and impact of potential failures"
+    ],
+    correct:3,
+    explanation:"Risk-based testing allocates testing effort based on risk level—a combination of the likelihood of a defect occurring and the impact if it does. Higher-risk areas receive more intensive testing."
+  },
+  {
+    id:30, chapter:5, chapterName:"Managing the Test Activities", kLevel:"K2",
+    question:"A test manager needs to monitor test execution progress against the plan. Which metric provides the most direct view of progress?",
+    options:[
+      "Total lines of code written by the development team per day",
+      "Number of open requirements that have not yet been baselined",
+      "Count of team members currently assigned to the project",
+      "Number of test cases executed versus the total number planned for execution"
+    ],
+    correct:3,
+    explanation:"The ratio of executed test cases to planned test cases is a direct and widely used metric for monitoring execution progress. It clearly shows how much of the planned test coverage has been achieved."
+  },
+  {
+    id:31, chapter:5, chapterName:"Managing the Test Activities", kLevel:"K2",
+    question:"In the ISTQB context, which of the following correctly defines 'product risk'?",
+    options:[
+      "The possibility that the software product fails to satisfy stakeholder needs",
+      "The financial risk of the project exceeding its allocated budget",
+      "The risk that the testing team will miss the planned test completion date",
+      "The risk associated with adopting new and unproven development tools"
+    ],
+    correct:0,
+    explanation:"Product risk relates to the quality of the test object itself—the possibility that the software has defects that cause it to fail to meet business, stakeholder, or user needs. Project risks (schedule, budget) are a separate category."
+  },
+  {
+    id:32, chapter:5, chapterName:"Managing the Test Activities", kLevel:"K2",
+    question:"Which statement most accurately describes exploratory testing?",
+    options:[
+      "A highly structured approach where all test cases are documented before any execution begins",
+      "Fully automated AI-driven testing that explores the application without human direction",
+      "A simultaneous approach in which the tester learns about the system, designs tests, and executes them dynamically",
+      "End-user testing conducted exclusively in a production-equivalent environment"
+    ],
+    correct:2,
+    explanation:"Exploratory testing combines simultaneous learning, test design, and execution. The tester uses knowledge gained during testing to adapt and guide subsequent tests in real time, without predefined scripts."
+  },
+  {
+    id:33, chapter:5, chapterName:"Managing the Test Activities", kLevel:"K2",
+    question:"What is the primary purpose of a defect report?",
+    options:[
+      "To formally request new features discovered as missing during testing",
+      "To provide enough information for developers to reproduce, evaluate, and fix the defect",
+      "To grant official release approval for the tested component",
+      "To record time spent identifying and correcting the defect"
+    ],
+    correct:1,
+    explanation:"A defect report must contain sufficient information (steps to reproduce, expected vs. actual results, environment details, severity) to allow developers to reproduce, understand, and correct the defect efficiently."
+  },
+  {
+    id:34, chapter:5, chapterName:"Managing the Test Activities", kLevel:"K3",
+    question:"A project identifies two risks: Risk X (likelihood 4/5, impact 3/5) and Risk Y (likelihood 2/5, impact 5/5). Calculating risk level as likelihood × impact, which testing priority assignment is correct?",
+    options:[
+      "Risk Y first, because it has the higher individual impact score",
+      "Risk X first, because it has the higher individual likelihood score",
+      "Risk X first, because its risk score of 12 exceeds Risk Y's score of 10",
+      "Equal priority, since neither score reaches the maximum possible value"
+    ],
+    correct:2,
+    explanation:"Risk level = likelihood × impact. Risk X = 4×3 = 12; Risk Y = 2×5 = 10. Risk X has the higher combined risk score and should therefore receive higher testing priority, even though Risk Y has a higher individual impact."
+  },
+  {
+    id:35, chapter:5, chapterName:"Managing the Test Activities", kLevel:"K3",
+    question:"A tester is planning tests for a payment processing module that: (1) is business-critical, (2) contains complex logic with many edge cases, (3) had 15 defects in the previous release, and (4) was not modified in the current release. How should the tester approach this module?",
+    options:[
+      "Skip it entirely—no changes means no new defects",
+      "Run only a brief smoke test to confirm basic functions still work",
+      "Apply comprehensive risk-based testing: high criticality and defect history indicate high product risk",
+      "Automate all tests for this module and exclude it from manual testing this cycle"
+    ],
+    correct:2,
+    explanation:"Even without changes, the module is high-risk: business criticality, complex logic, and a history of 15 defects in the prior release all indicate high product risk. Risk-based testing requires more effort on high-risk areas regardless of whether changes were made."
+  },
+
+  // ─── CHAPTER 6 – Test Tools (5×K2) ───
+  {
+    id:36, chapter:6, chapterName:"Test Tools", kLevel:"K2",
+    question:"Which of the following is a primary benefit of test automation?",
+    options:[
+      "It completely eliminates the need for manual testing on a project",
+      "Repetitive test cases can be executed faster and more consistently than by humans",
+      "It guarantees 100% code coverage for every automated test suite",
+      "The initial setup investment is always lower than the cost of equivalent manual testing"
+    ],
+    correct:1,
+    explanation:"A primary benefit of test automation is the ability to execute repetitive test cases—such as regression suites—rapidly and consistently, without human fatigue or error. It does not eliminate manual testing or guarantee full coverage."
+  },
+  {
+    id:37, chapter:6, chapterName:"Test Tools", kLevel:"K2",
+    question:"Which type of tool measures the proportion of source code that has been exercised during test execution?",
+    options:[
+      "Test management tool",
+      "Static analysis tool",
+      "Performance testing tool",
+      "Code coverage tool"
+    ],
+    correct:3,
+    explanation:"Code coverage tools instrument source code and report what percentage of statements, branches, paths, or other structural elements were executed during a test run—helping testers identify untested code areas."
+  },
+  {
+    id:38, chapter:6, chapterName:"Test Tools", kLevel:"K2",
+    question:"Which of the following represents a significant risk when introducing test automation into a project?",
+    options:[
+      "Automated tests might run much faster than the manual team expected",
+      "Automating poorly designed test cases can create false confidence in software quality",
+      "All commercial test automation tools require expensive enterprise licenses",
+      "Automation always prevents testers from developing exploratory testing skills"
+    ],
+    correct:1,
+    explanation:"If the underlying test cases are poorly designed, automating them amplifies the problem—running weak tests repeatedly and producing results that give a misleading sense of security about the product's quality."
+  },
+  {
+    id:39, chapter:6, chapterName:"Test Tools", kLevel:"K2",
+    question:"A team wants to simulate 5,000 concurrent users accessing their web application to evaluate behavior under peak load. Which type of tool should they use?",
+    options:[
+      "Defect tracking tool",
+      "Unit testing framework",
+      "Requirements management tool",
+      "Load testing tool"
+    ],
+    correct:3,
+    explanation:"Load testing tools generate virtual user load to evaluate system behavior under specified load conditions, measuring response time, throughput, and resource utilization to identify performance bottlenecks at peak usage."
+  },
+  {
+    id:40, chapter:6, chapterName:"Test Tools", kLevel:"K2",
+    question:"Which statement correctly describes what static analysis tools do?",
+    options:[
+      "They execute the software and monitor its runtime behavior to detect anomalies",
+      "They analyze source code without executing it to detect potential defects and quality issues",
+      "They compare test run results against a previous baseline to identify regressions",
+      "They record and replay user interactions with the UI for regression testing purposes"
+    ],
+    correct:1,
+    explanation:"Static analysis tools examine source code (or other artifacts) without execution, detecting potential issues such as coding standard violations, security vulnerabilities, dead code, and uninitialized variables."
+  }
+];
+
+// ═══════════════════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════════════════
+let currentIndex = 0;
+let userAnswers  = new Array(questions.length).fill(null);
+let timerInterval = null;
+let secondsLeft  = 60 * 60;
+let quizStarted  = false;
+
+// ═══════════════════════════════════════════════════════════
+// TIMER
+// ═══════════════════════════════════════════════════════════
+function formatTime(secs) {
+  const m = Math.floor(secs / 60).toString().padStart(2,'0');
+  const s = (secs % 60).toString().padStart(2,'0');
+  return `${m}:${s}`;
+}
+function startTimer() {
+  const el = document.getElementById('timer');
+  el.textContent = formatTime(secondsLeft);
+  timerInterval = setInterval(() => {
+    secondsLeft--;
+    el.textContent = formatTime(Math.max(0, secondsLeft));
+    if (secondsLeft <= 300 && secondsLeft > 60) el.className = 'warning';
+    if (secondsLeft <= 60) el.className = 'danger';
+    if (secondsLeft <= 0) { clearInterval(timerInterval); endQuiz(); }
+  }, 1000);
+}
+
+// ═══════════════════════════════════════════════════════════
+// SCREENS
+// ═══════════════════════════════════════════════════════════
+function showScreen(id) {
+  ['screen-start','screen-quiz','screen-results','screen-review'].forEach(s => {
+    document.getElementById(s).style.display = 'none';
+  });
+  document.getElementById(id).style.display = 'block';
+}
+
+// ═══════════════════════════════════════════════════════════
+// START
+// ═══════════════════════════════════════════════════════════
+function startQuiz() {
+  currentIndex = 0;
+  userAnswers  = new Array(questions.length).fill(null);
+  secondsLeft  = 60 * 60;
+  quizStarted  = true;
+  document.getElementById('progress-wrap').style.display = 'block';
+  showScreen('screen-quiz');
+  startTimer();
+  renderQuestion();
+}
+
+function restartQuiz() {
+  clearInterval(timerInterval);
+  startQuiz();
+}
+
+// ═══════════════════════════════════════════════════════════
+// RENDER QUESTION
+// ═══════════════════════════════════════════════════════════
+const LETTERS = ['A','B','C','D'];
+
+function renderQuestion() {
+  const q = questions[currentIndex];
+  const pct = Math.round((currentIndex / questions.length) * 100);
+  document.getElementById('progress-text').textContent = `Pytanie ${currentIndex + 1} z ${questions.length}`;
+  document.getElementById('progress-pct').textContent   = pct + '%';
+  document.getElementById('progress-fill').style.width  = pct + '%';
+
+  // Meta badges
+  const kClass = q.kLevel.toLowerCase();
+  document.getElementById('q-meta').innerHTML =
+    `<span class="badge chapter">Rozdział ${q.chapter}: ${q.chapterName}</span>` +
+    `<span class="badge ${kClass}">${q.kLevel}</span>`;
+
+  // Question text
+  document.getElementById('q-text').textContent = q.question;
+
+  // Options
+  const optDiv = document.getElementById('q-options');
+  optDiv.innerHTML = '';
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'option-btn';
+    btn.innerHTML = `<span class="opt-letter">${LETTERS[i]}</span><span>${opt}</span>`;
+    btn.onclick = () => selectAnswer(i);
+    optDiv.appendChild(btn);
+  });
+
+  // Feedback
+  const fb = document.getElementById('q-feedback');
+  fb.style.display = 'none';
+  fb.className = 'feedback';
+
+  // Next button
+  document.getElementById('btn-next').style.display = 'none';
+
+  // If already answered (navigating back via review – not applicable here, but future-proofing)
+  if (userAnswers[currentIndex] !== null) {
+    showAnswerFeedback(userAnswers[currentIndex], false);
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// ANSWER SELECTION
+// ═══════════════════════════════════════════════════════════
+function selectAnswer(chosen) {
+  if (userAnswers[currentIndex] !== null) return; // already answered
+  userAnswers[currentIndex] = chosen;
+
+  const q    = questions[currentIndex];
+  const btns = document.querySelectorAll('.option-btn');
+
+  btns.forEach((btn, i) => {
+    btn.disabled = true;
+    if (i === q.correct && i !== chosen) btn.classList.add('show-correct');
+  });
+
+  const isCorrect = (chosen === q.correct);
+  btns[chosen].classList.add(isCorrect ? 'correct' : 'incorrect');
+
+  showAnswerFeedback(chosen, true);
+}
+
+function showAnswerFeedback(chosen, animate) {
+  const q = questions[currentIndex];
+  const isCorrect = (chosen === q.correct);
+  const fb = document.getElementById('q-feedback');
+
+  fb.className = 'feedback ' + (isCorrect ? 'correct' : 'incorrect');
+  document.getElementById('fb-title').textContent = isCorrect
+    ? '✓ Poprawna odpowiedź!'
+    : `✗ Błędna odpowiedź. Poprawna: ${LETTERS[q.correct]}`;
+  document.getElementById('fb-body').textContent = q.explanation;
+  fb.style.display = 'block';
+
+  const nextBtn = document.getElementById('btn-next');
+  if (currentIndex < questions.length - 1) {
+    nextBtn.textContent = 'Następne pytanie →';
+  } else {
+    nextBtn.textContent = 'Zakończ egzamin ✓';
+  }
+  nextBtn.style.display = 'inline-block';
+}
+
+// ═══════════════════════════════════════════════════════════
+// NEXT QUESTION
+// ═══════════════════════════════════════════════════════════
+function nextQuestion() {
+  if (currentIndex < questions.length - 1) {
+    currentIndex++;
+    renderQuestion();
+  } else {
+    endQuiz();
+  }
+}
+
+// ═══════════════════════════════════════════════════════════
+// END QUIZ → RESULTS
+// ═══════════════════════════════════════════════════════════
+function endQuiz() {
+  clearInterval(timerInterval);
+  document.getElementById('progress-wrap').style.display = 'none';
+
+  // Fill unanswered as wrong
+  for (let i = 0; i < questions.length; i++) {
+    if (userAnswers[i] === null) userAnswers[i] = -1;
+  }
+
+  // Totals
+  let correct = 0;
+  questions.forEach((q, i) => { if (userAnswers[i] === q.correct) correct++; });
+  const pct  = Math.round((correct / questions.length) * 100);
+  const pass = pct >= 65;
+
+  document.getElementById('res-score').textContent = correct;
+  document.getElementById('res-pct').textContent   = pct + '%';
+  const verdict = document.getElementById('res-verdict');
+  verdict.textContent  = pass ? '✓ ZDANY' : '✗ NIEZDANY';
+  verdict.className    = 'result-verdict ' + (pass ? 'pass' : 'fail');
+
+  // Per chapter
+  const chapters = {};
+  questions.forEach((q, i) => {
+    if (!chapters[q.chapter]) chapters[q.chapter] = { name: q.chapterName, total: 0, correct: 0 };
+    chapters[q.chapter].total++;
+    if (userAnswers[i] === q.correct) chapters[q.chapter].correct++;
+  });
+  let chHtml = '';
+  Object.values(chapters).forEach(ch => {
+    const p = Math.round((ch.correct / ch.total) * 100);
+    chHtml += `<div class="result-row">
+      <span class="label">${ch.name}</span>
+      <div class="mini-bar-wrap"><div class="mini-bar" style="width:${p}%"></div></div>
+      <span class="score-num">${ch.correct}/${ch.total}</span>
+    </div>`;
+  });
+  document.getElementById('res-chapters').innerHTML = chHtml;
+
+  // Per K-level
+  const klevels = { K1:{ total:0, correct:0 }, K2:{ total:0, correct:0 }, K3:{ total:0, correct:0 } };
+  questions.forEach((q, i) => {
+    klevels[q.kLevel].total++;
+    if (userAnswers[i] === q.correct) klevels[q.kLevel].correct++;
+  });
+  let kHtml = '';
+  ['K1','K2','K3'].forEach(k => {
+    const kd = klevels[k];
+    if (kd.total === 0) return;
+    const desc = k === 'K1' ? 'Pamiętanie' : k === 'K2' ? 'Rozumienie' : 'Zastosowanie';
+    const p = Math.round((kd.correct / kd.total) * 100);
+    kHtml += `<div class="result-row">
+      <span class="label">${k} – ${desc}</span>
+      <div class="mini-bar-wrap"><div class="mini-bar" style="width:${p}%"></div></div>
+      <span class="score-num">${kd.correct}/${kd.total}</span>
+    </div>`;
+  });
+  document.getElementById('res-klevels').innerHTML = kHtml;
+
+  showScreen('screen-results');
+}
+
+// ═══════════════════════════════════════════════════════════
+// REVIEW
+// ═══════════════════════════════════════════════════════════
+function showReview() {
+  const body = document.getElementById('review-body');
+  let html = '';
+  questions.forEach((q, i) => {
+    const ua = userAnswers[i];
+    const isCorrect = ua === q.correct;
+    html += `<div class="review-item">
+      <div class="review-meta">
+        <span class="review-q-num">Pytanie ${i+1}</span>
+        <span class="badge chapter">Rozdział ${q.chapter}</span>
+        <span class="badge ${q.kLevel.toLowerCase()}">${q.kLevel}</span>
+        <span class="review-verdict ${isCorrect ? 'correct' : 'incorrect'}">
+          ${isCorrect ? '✓ Poprawna' : '✗ Błędna'}
+        </span>
+      </div>
+      <div class="review-question">${q.question}</div>
+      <div class="review-options">`;
+    q.options.forEach((opt, oi) => {
+      let cls = '';
+      if (oi === q.correct) cls = 'correct';
+      else if (oi === ua && !isCorrect) cls = 'user-wrong';
+      html += `<div class="review-option ${cls}">
+        <span class="ro-letter">${LETTERS[oi]}</span>
+        <span>${opt}</span>
+      </div>`;
+    });
+    html += `</div>
+      <div class="review-expl"><strong>Wyjaśnienie:</strong> ${q.explanation}</div>
+    </div>`;
+  });
+  body.innerHTML = html;
+  showScreen('screen-review');
+}
+
+function showResults() {
+  showScreen('screen-results');
+}
+</script>
+</body>
+</html>
